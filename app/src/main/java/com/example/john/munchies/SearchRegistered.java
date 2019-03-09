@@ -27,12 +27,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SearchRegistered extends AppCompatActivity implements View.OnClickListener {
 
-    DatabaseHelper DB;
-    EditText userID, password;
+    EditText userID, password, emailPassword;
     Button goRegister;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference ref;
     ProgressDialog progressDialog;
-    String getCutUser, getUser, getPass;
+    String user, cutUser, ePass, pass;
 
 
     @Override
@@ -42,17 +43,14 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
 
         //initialize
         firebaseAuth = FirebaseAuth.getInstance();
-
-
-        //DB = new DatabaseHelper(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
         userID = (EditText) findViewById(R.id.LoginUserID);
+        emailPassword = (EditText)  findViewById(R.id.emailPass);
         password = (EditText) findViewById(R.id.LoginPassword);
         goRegister = (Button) findViewById(R.id.nextPage);
 
         progressDialog = new ProgressDialog(this);
-
-
 
         //Our views
         goRegister.setOnClickListener(this);
@@ -64,49 +62,65 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
 
     public void goReg(){
 
-        String user = userID.getText().toString();
-        String pass = password.getText().toString();
+        user = userID.getText().toString();
+        cutUser = user.substring(0, user.indexOf("@"));
+        ePass = emailPassword.getText().toString();
+        pass = password.getText().toString();
 
-        if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass) ){
+        if (user.equals("") || pass.equals("")  || ePass.equals("")  ){
             Toast.makeText(this, "Empty String Forbidden", Toast.LENGTH_SHORT).show();
-            return;
-
         }
 
         if (!user.endsWith("@my.centennialcollege.ca")) {
             Toast.makeText(this, "Only Centennial Email Allowed", Toast.LENGTH_SHORT).show();
-            return;
         }
 
-
         else{
-            //therefore it must be created
-            progressDialog.setMessage("Processing Registration");
-            progressDialog.show();
-
-            firebaseAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            ref = firebaseDatabase.getReference("MunchiesDB").child("Emails").child(cutUser);
+            ref.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    EmailClass check = dataSnapshot.getValue(EmailClass.class);
+                    String getEmail = check.getEmail();
+                    String getP = check.getPassword();
+                    if(user.equals(getEmail) && ePass.equals(getP)){
+                        Toast.makeText(getApplicationContext(), "User found", Toast.LENGTH_LONG).show();
+                        progressDialog.setMessage("Processing Registration");
+                        progressDialog.show();
+                        firebaseAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(SearchRegistered.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(SearchRegistered.this, "REGISTERED", Toast.LENGTH_SHORT).show();
+                                    progressDialog.cancel();
 
-                        Toast.makeText(SearchRegistered.this, "REGISTERED", Toast.LENGTH_SHORT).show();
-                        progressDialog.cancel();
+                                    Intent i = new Intent(SearchRegistered.this, Login.class);
+                                    startActivity(i);
 
-                        Intent i = new Intent(SearchRegistered.this, Login.class);
-                        startActivity(i);
+                                }
+                                else {
+                                    progressDialog.cancel();
+                                    Toast.makeText(SearchRegistered.this, "NOT REGISTERED - " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                                progressDialog.cancel();
+
+                            }
+                        });
+
 
                     }
-                    else {
-                        progressDialog.cancel();
-
-                        Toast.makeText(SearchRegistered.this, "NOT REGISTERED - " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
-
+                    else{
+                        Toast.makeText(getApplicationContext(), "user not found", Toast.LENGTH_LONG).show();
                     }
-                    progressDialog.cancel();
 
                 }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getApplicationContext(), "Data not found: " + databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                }
             });
+            //therefore it must be created
+//
         }
     }
 
@@ -119,43 +133,43 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
     }
 
 
-    public void goRegDB(){
-        goRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getUser = userID.getText().toString();
-                getPass = password.getText().toString();
-                if(getUser.equals("")|| getPass.equals("")){
-                    Toast.makeText(getApplicationContext(), "Please fill in your information", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Cursor cursor = DB.getRegisteredSchoolUser(getUser, getPass);
-                    Cursor cursor2 = DB.checkUser(getUser);
-                    if (cursor.getCount() == 0 ) {
-                        Toast.makeText(getApplicationContext(), "Invalid Credential", Toast.LENGTH_LONG).show();
-                        userID.setText("");
-                        password.setText("");
-                        return;
-                    }
-                    else if(cursor2.getCount() > 0){
-                        Toast.makeText(getApplicationContext(), "User for this app exists. Cannot proceed", Toast.LENGTH_LONG).show();
-                        userID.setText("");
-                        password.setText("");
-                        return;
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Registered User Exists.", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(SearchRegistered.this, Registration.class);
-                        i.putExtra("UserID", getUser);
-                        userID.setText("");
-                        password.setText("");
-                        startActivity(i);
-                    }
-                }
-            }
-        });
-
-    }
+//    public void goRegDB(){
+//        goRegister.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getUser = userID.getText().toString();
+//                getPass = password.getText().toString();
+//                if(getUser.equals("")|| getPass.equals("")){
+//                    Toast.makeText(getApplicationContext(), "Please fill in your information", Toast.LENGTH_LONG).show();
+//                }
+//                else{
+//                    Cursor cursor = DB.getRegisteredSchoolUser(getUser, getPass);
+//                    Cursor cursor2 = DB.checkUser(getUser);
+//                    if (cursor.getCount() == 0 ) {
+//                        Toast.makeText(getApplicationContext(), "Invalid Credential", Toast.LENGTH_LONG).show();
+//                        userID.setText("");
+//                        password.setText("");
+//                        return;
+//                    }
+//                    else if(cursor2.getCount() > 0){
+//                        Toast.makeText(getApplicationContext(), "User for this app exists. Cannot proceed", Toast.LENGTH_LONG).show();
+//                        userID.setText("");
+//                        password.setText("");
+//                        return;
+//                    }
+//                    else{
+//                        Toast.makeText(getApplicationContext(), "Registered User Exists.", Toast.LENGTH_LONG).show();
+//                        Intent i = new Intent(SearchRegistered.this, Registration.class);
+//                        i.putExtra("UserID", getUser);
+//                        userID.setText("");
+//                        password.setText("");
+//                        startActivity(i);
+//                    }
+//                }
+//            }
+//        });
+//
+//    }
 
 
 }

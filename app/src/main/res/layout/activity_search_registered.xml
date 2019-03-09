@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/userID"
+            android:text="Email"
             android:textSize="18sp" />
 
         <EditText
@@ -38,6 +38,25 @@
 
         <TextView
 
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="Email Password:"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/emailPass"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp">
+
+        <TextView
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:text="@string/password"

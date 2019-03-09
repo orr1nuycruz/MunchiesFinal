@@ -1,7 +1,5 @@
 package com.example.john.munchies;
 
-import android.content.Intent;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +25,7 @@ public class AdminAddRestaurant extends AppCompatActivity {
     DatabaseReference myRef;
 
     EditText editRestaurantName;
+    EditText editRestaurantID;
 
     Button btnAddRestaurant;
     Button btnDeleteRestaurant;
@@ -44,6 +43,7 @@ public class AdminAddRestaurant extends AppCompatActivity {
         myFB = FirebaseDatabase.getInstance();
         myRef = myFB.getReference("MunchiesDB");
         editRestaurantName = (EditText)findViewById(R.id.editAdminAddRestaurant);
+        editRestaurantID = (EditText)findViewById(R.id.editAdminAddResID);
         btnAddRestaurant = (Button)findViewById(R.id.AddRestaurant);
         btnDeleteRestaurant = (Button)findViewById(R.id.DeleteRestaurant);
         addRestaurant();
@@ -75,7 +75,7 @@ public class AdminAddRestaurant extends AppCompatActivity {
     public void showData(DataSnapshot dataSnapshot){
         restaurantArrayList.clear();
         for(DataSnapshot item: dataSnapshot.getChildren()){
-            ObjectRestaurant restaurant = item.getValue(ObjectRestaurant.class);
+            RestaurantClass restaurant = item.getValue(RestaurantClass.class);
             restaurantArrayList.add(restaurant.getRestaurantName());
         }
 
@@ -91,12 +91,14 @@ public class AdminAddRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String getRestaurant = editRestaurantName.getText().toString();
-                if(getRestaurant.equals("")){
+                String getID = editRestaurantID.getText().toString();
+                if(getRestaurant.equals("") || getID.equals("")){
                     Toast.makeText( AdminAddRestaurant.this, "Please fill out all information", Toast.LENGTH_LONG).show();
                 } else {
-                    ObjectRestaurant restaurant = new ObjectRestaurant(getRestaurant);
+                    RestaurantClass restaurant = new RestaurantClass(getID, getRestaurant);
                     myRef.child(getRestaurant).setValue(restaurant);
                     editRestaurantName.setText("");
+                    editRestaurantID.setText("");
                 }
             }
         });
@@ -104,7 +106,7 @@ public class AdminAddRestaurant extends AppCompatActivity {
     }
 
     public void deleteRestaurant(){
-        final ObjectRestaurant restaurant = new ObjectRestaurant();
+        final RestaurantClass restaurant = new RestaurantClass();
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -116,7 +118,7 @@ public class AdminAddRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String name = restaurant.getRestaurantID();
-                if(name == ""){
+                if(name.equals("")){
                     Toast.makeText( AdminAddRestaurant.this, "Please Select item before delete!", Toast.LENGTH_LONG).show();
                 } else {
                     myRef.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -127,7 +129,6 @@ public class AdminAddRestaurant extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
                         }
                     });
                 }

@@ -29,6 +29,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button changePassword;
     Button logout;
     Button next;
+    Button GoAddRes;
     TextView txtlogin, txtpass, txtv;
 
     ProgressDialog progressDialog;
@@ -74,6 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         logout = (Button)findViewById(R.id.logout);
         changePassword = (Button) findViewById((R.id.CheckRows));
         next = (Button) findViewById((R.id.next));
+        GoAddRes = (Button) findViewById(R.id.addRes);
 
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
@@ -82,7 +84,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         progressDialog = new ProgressDialog(this);
 
         //View Config
-
         configView();
 
 
@@ -92,6 +93,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         logout.setOnClickListener(this);
         register.setOnClickListener(this);
         next.setOnClickListener(this);
+        GoAddRes.setOnClickListener(this);
+
 
     }
 
@@ -113,6 +116,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         if (view == next){
             nextPage();
+        }
+        if(view == GoAddRes){
+            AddAdminRes();
         }
 
     }
@@ -141,36 +147,52 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     progressDialog.cancel();
 
                     //failed
-
                 }
                 progressDialog.cancel();
 
             }
         });
-
-
-
-
     }
 
     public void configView(){
 
         if (mAuth.getCurrentUser() != null){
-            register.setVisibility(View.INVISIBLE);
-            login.setVisibility(View.INVISIBLE);
-            loginname.setVisibility(View.INVISIBLE);
-            loginpass.setVisibility(View.INVISIBLE);
-            txtlogin.setVisibility(View.INVISIBLE);
-            txtpass.setVisibility(View.INVISIBLE);
+            if(mAuth.getCurrentUser().getEmail().equals("admin@myadmin.ca")) {
+                register.setVisibility(View.INVISIBLE);
+                login.setVisibility(View.INVISIBLE);
+                loginname.setVisibility(View.INVISIBLE);
+                loginpass.setVisibility(View.INVISIBLE);
 
-            txtv.setText("Welcome Back Munchee: " + mAuth.getCurrentUser().getEmail());
+                txtlogin.setVisibility(View.INVISIBLE);
+                txtpass.setVisibility(View.INVISIBLE);
 
-            changePassword.setVisibility(View.VISIBLE);
-            logout.setVisibility(View.VISIBLE);
-            next.setVisibility(View.VISIBLE);
+                changePassword.setVisibility(View.INVISIBLE);
+                logout.setVisibility(View.VISIBLE);
+                next.setVisibility(View.INVISIBLE);
+                txtv.setText("Welcome Admin");
+
+                GoAddRes.setVisibility(View.VISIBLE);
+            }
+            else{
+                register.setVisibility(View.INVISIBLE);
+                login.setVisibility(View.INVISIBLE);
+                loginname.setVisibility(View.INVISIBLE);
+                loginpass.setVisibility(View.INVISIBLE);
+
+                txtlogin.setVisibility(View.INVISIBLE);
+                txtpass.setVisibility(View.INVISIBLE);
+
+                txtv.setText("Welcome Back Munchee: " + mAuth.getCurrentUser().getEmail());
+
+                changePassword.setVisibility(View.VISIBLE);
+                logout.setVisibility(View.VISIBLE);
+                next.setVisibility(View.VISIBLE);
+                GoAddRes.setVisibility(View.INVISIBLE);
+            }
 
         }
-        else{
+
+        else {
             register.setVisibility(View.VISIBLE);
             login.setVisibility(View.VISIBLE);
             loginname.setVisibility(View.VISIBLE);
@@ -181,11 +203,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             txtv.setText("Login");
 
-
-
             changePassword.setVisibility(View.INVISIBLE);
             logout.setVisibility(View.INVISIBLE);
             next.setVisibility(View.INVISIBLE);
+            GoAddRes.setVisibility(View.INVISIBLE);
         }
 
 
@@ -216,6 +237,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void register (){
         Intent i = new Intent(Login.this, SearchRegistered.class);
+        startActivity(i);
+    }
+
+    public void AddAdminRes (){
+        Intent i = new Intent(Login.this, AdminAddRestaurant.class);
         startActivity(i);
     }
 }
