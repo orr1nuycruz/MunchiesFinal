@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Munchies</string>
+    <string name="login">Login</string>
+
+    <string name="username">Username: </string>
+    <string name="userID">User ID: </string>
+    <string name="password">Password: </string>
+    <string name="opassword">Old Password: </string>
+    <string name="npassword">New Password: </string>
+    <string name="registration">Registration</string>
+    <string name="studentFName">First Name:</string>
+    <string name="displayName">Display Name</string>
+
+    <string name="restaurant">Restaurant</string>
+    <string name="register">Register</string>
+    <string name="role">Role:</string>
+    <string name="admin_page">Admin</string>
+    <string name="admin_add_delete_restaurant">Add/Remove Restaurant</string>
+    <string name="admin_add_restaurant">Add Restaurant</string>
+    <string name="admin_delete_restaurant">Remove Restaurant</string>
+    <string name="restaurantName">Restaurant Name:</string>
+    <string name="goToRegister">Next</string>
+    <string name="changePass">Change Password</string>
+    <string name="restaurantRegistration">Restaurant Registration</string>
+    <string name="restaurantAddItem">Add Menu</string>
+    <string name="menuName">Item name:</string>
+    <string name="menuPrice">Item price:</string>
+    <string name="myCart">My Cart</string>
+    <string name="myPurchaseHistory">Purchase History</string>
+    <string name="menuCRUD">Menu CRUD</string>
+    <string name="btnAdd">Add</string>
+    <string name="btnUpdate">Update</string>
+    <string name="btnDelete">Delete</string>
+
+</resources>

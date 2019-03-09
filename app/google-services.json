@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "220728728801",
+    "firebase_url": "https://munchie-d083a.firebaseio.com",
+    "project_id": "munchie-d083a",
+    "storage_bucket": "munchie-d083a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220728728801:android:f229d33fe6c5cfd2",
+        "android_client_info": {
+          "package_name": "com.example.john.munchies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220728728801-siqgb6sbt57lm5102mqfpp4v5bs0jqhm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc2p_ivWtj47UWS6viJFIp2UGtJeHC1HE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
