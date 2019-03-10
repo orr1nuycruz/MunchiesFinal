@@ -1,5 +1,5 @@
 package com.example.john.munchies;
-
+//Harvey
 public class CustomerCartClass {
     private String userEmail, itemName, restaurantName;
     private double price;

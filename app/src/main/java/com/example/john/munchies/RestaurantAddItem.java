@@ -33,7 +33,6 @@ public class RestaurantAddItem extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_add_item);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
         restaurantUser = sharedPref.getString("User", "");
         restaurantName = sharedPref.getString("RestName", "");
 

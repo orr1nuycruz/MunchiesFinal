@@ -2,7 +2,9 @@ package com.example.john.munchies;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -97,6 +99,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         next.setOnClickListener(this);
         GoAddRes.setOnClickListener(this);
         GotoRest.setOnClickListener(this);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("userEmail", loginname.toString());
+        editor.apply();
 
 
     }

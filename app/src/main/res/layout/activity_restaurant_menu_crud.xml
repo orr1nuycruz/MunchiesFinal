@@ -55,18 +55,28 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/btnAdd" />
+            android:text="@string/btnAdd"
+            android:id="@+id/btnAddMenu"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/btnUpdate" />
+            android:text="@string/btnUpdate"
+            android:id="@+id/btnUpdateMenu"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/btnDelete" />
+            android:text="@string/btnDelete"
+            android:id="@+id/btnDeleteMenu"/>
 
     </LinearLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listMenuItemCRUD">
+
+    </ListView>
 
 </LinearLayout>
