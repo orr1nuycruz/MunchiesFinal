@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class RestaurantLogin extends AppCompatActivity {
-
+//
     EditText txtUser, txtPass;
     String getUser, getPass;
     Button btnLogin;
@@ -58,6 +58,7 @@ public class RestaurantLogin extends AppCompatActivity {
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("User", getUser);
                                 editor.putString("RestName", name);
+                                editor.apply();
                                 Intent i = new Intent(RestaurantLogin.this, RestaurantAddItem.class);
                                 startActivity(i);
                             }

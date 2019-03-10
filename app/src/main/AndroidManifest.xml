@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantLogin">
-        </activity>
+        <activity android:name=".RestaurantLogin"></activity>
         <activity android:name=".ShowFirebaseActivity" />
         <activity android:name=".AddFireBaseActivity" />
         <activity android:name=".Homepage">
@@ -35,12 +34,14 @@
             android:name=".AdminAddRestaurant"
             android:noHistory="true" />
         <activity android:name=".Restaurant" />
-        <activity android:name=".RestaurantRegistration"
-                   android:noHistory="true"/>
+        <activity
+            android:name=".RestaurantRegistration"
+            android:noHistory="true" />
         <activity android:name=".RestaurantAddItem" />
         <activity android:name=".CustomerCart" />
         <activity android:name=".CustomerPurchaseHistory" />
         <activity android:name=".RestaurantMenuCRUD" />
+        <activity android:name=".RestaurantMenu"></activity>
     </application>
 
 </manifest>

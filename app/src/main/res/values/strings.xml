@@ -31,5 +31,6 @@
     <string name="btnAdd">Add</string>
     <string name="btnUpdate">Update</string>
     <string name="btnDelete">Delete</string>
+    <string name="restaurantMenu">Menu</string>
 
 </resources>

@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class AdminAddRestaurant extends AppCompatActivity {
-
+//
     FirebaseDatabase myFB;
     DatabaseReference myRef;
 

@@ -55,7 +55,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAddMenu"/>
+        android:id="@+id/restaurantAddMenu"
+        android:text="@string/btnAdd"/>
 
 
 </LinearLayout>

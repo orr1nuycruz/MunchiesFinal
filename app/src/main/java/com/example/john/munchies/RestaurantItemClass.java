@@ -15,6 +15,12 @@ public class RestaurantItemClass {
         this.price = price;
     }
 
+    public RestaurantItemClass(String itemName, String restaurantName, double price){
+        this.itemName = itemName;
+        this.restaurantName = restaurantName;
+        this.price = price;
+    }
+
     public String getItemID() {
         return itemID;
     }
