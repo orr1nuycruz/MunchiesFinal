@@ -85,6 +85,7 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
                     String getP = check.getPassword();
                     if(user.equals(getEmail) && ePass.equals(getP)){
                         Toast.makeText(getApplicationContext(), "User found", Toast.LENGTH_LONG).show();
+                        //therefore it must be created
                         progressDialog.setMessage("Processing Registration");
                         progressDialog.show();
                         firebaseAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(SearchRegistered.this, new OnCompleteListener<AuthResult>() {
@@ -119,8 +120,7 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(getApplicationContext(), "Data not found: " + databaseError.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-            //therefore it must be created
-//
+
         }
     }
 
@@ -132,44 +132,6 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
-//    public void goRegDB(){
-//        goRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getUser = userID.getText().toString();
-//                getPass = password.getText().toString();
-//                if(getUser.equals("")|| getPass.equals("")){
-//                    Toast.makeText(getApplicationContext(), "Please fill in your information", Toast.LENGTH_LONG).show();
-//                }
-//                else{
-//                    Cursor cursor = DB.getRegisteredSchoolUser(getUser, getPass);
-//                    Cursor cursor2 = DB.checkUser(getUser);
-//                    if (cursor.getCount() == 0 ) {
-//                        Toast.makeText(getApplicationContext(), "Invalid Credential", Toast.LENGTH_LONG).show();
-//                        userID.setText("");
-//                        password.setText("");
-//                        return;
-//                    }
-//                    else if(cursor2.getCount() > 0){
-//                        Toast.makeText(getApplicationContext(), "User for this app exists. Cannot proceed", Toast.LENGTH_LONG).show();
-//                        userID.setText("");
-//                        password.setText("");
-//                        return;
-//                    }
-//                    else{
-//                        Toast.makeText(getApplicationContext(), "Registered User Exists.", Toast.LENGTH_LONG).show();
-//                        Intent i = new Intent(SearchRegistered.this, Registration.class);
-//                        i.putExtra("UserID", getUser);
-//                        userID.setText("");
-//                        password.setText("");
-//                        startActivity(i);
-//                    }
-//                }
-//            }
-//        });
-//
-//    }
 
 
 }

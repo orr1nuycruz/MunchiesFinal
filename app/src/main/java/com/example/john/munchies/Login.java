@@ -30,6 +30,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button logout;
     Button next;
     Button GoAddRes;
+    Button GotoRest;
     TextView txtlogin, txtpass, txtv;
 
     ProgressDialog progressDialog;
@@ -76,6 +77,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         changePassword = (Button) findViewById((R.id.CheckRows));
         next = (Button) findViewById((R.id.next));
         GoAddRes = (Button) findViewById(R.id.addRes);
+        GotoRest = (Button) findViewById(R.id.goRestaurant);
 
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
@@ -94,6 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         register.setOnClickListener(this);
         next.setOnClickListener(this);
         GoAddRes.setOnClickListener(this);
+        GotoRest.setOnClickListener(this);
 
 
     }
@@ -119,6 +122,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         if(view == GoAddRes){
             AddAdminRes();
+        }
+        if(view == GotoRest){
+            RestaurantLogin();
         }
 
     }
@@ -237,6 +243,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void register (){
         Intent i = new Intent(Login.this, SearchRegistered.class);
+        startActivity(i);
+    }
+
+    public void RestaurantLogin (){
+        Intent i = new Intent(Login.this, RestaurantLogin.class);
         startActivity(i);
     }
 

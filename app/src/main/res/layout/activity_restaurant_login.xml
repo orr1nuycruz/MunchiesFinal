@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RestaurantLogin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/background_dark">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Register"
+            android:onClick="goToReg"/>
+
+    </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtloginMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="301dp"
+            android:layout_height="273dp"
+            android:layout_gravity="center"
+            android:src="@drawable/munchies_logo" />
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtLoginUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username: "
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editRestUser"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:id="@+id/txtLoginPassword"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/editRestPass"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/restLgn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Login"/>
+
+</LinearLayout>

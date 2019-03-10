@@ -15,6 +15,23 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"/>
 
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editRestaurantName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -23,10 +40,10 @@
         <TextView
             android:layout_width="93dp"
             android:layout_height="wrap_content"
-            android:text="@string/userID"
+            android:text="Restaurant ID: "
             android:textSize="14sp" />
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editID"
@@ -44,7 +61,7 @@
         <TextView
             android:layout_width="93dp"
             android:layout_height="wrap_content"
-            android:text="@string/displayName"
+            android:text="Username: "
             android:textSize="14sp" />
 
         <EditText
@@ -72,6 +89,8 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+
 
 
     <Button
