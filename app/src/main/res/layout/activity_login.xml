@@ -21,6 +21,16 @@
             android:layout_gravity="right"
             android:text="Restaurant View"/>
 
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:text="logout"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
     <ScrollView
@@ -62,9 +72,7 @@
                     android:id="@+id/editLoginUserID"
                     android:layout_width="250dp"
                     android:visibility="invisible"
-
                     android:layout_height="wrap_content"
-
                     />
 
             </LinearLayout>
@@ -95,7 +103,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="126dp"
                 android:orientation="vertical">
-
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
@@ -110,13 +117,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/register"
-
                     android:visibility="invisible" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/customerView"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal">
@@ -126,35 +133,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Restaurant"
-                    android:visibility="invisible" />
+                    android:text="Restaurant" />
 
                 <Button
                     android:id="@+id/CheckRows"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/changePass"
-
-                    android:visibility="invisible" />
-
-                <Button
-                    android:id="@+id/logout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="logout"
-                    android:visibility="invisible" />
-
+                    android:text="@string/changePass" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/addRes"
+            <LinearLayout
+                android:id="@+id/adminView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Add Restaurant"/>
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/addRes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Add Restaurant"/>
+
+            </LinearLayout>
+
 
 
         </LinearLayout>

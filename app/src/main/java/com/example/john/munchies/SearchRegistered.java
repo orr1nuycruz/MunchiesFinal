@@ -5,11 +5,9 @@ package com.example.john.munchies;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SearchRegistered extends AppCompatActivity implements View.OnClickListener {
 
-    EditText userID, password, emailPassword;
+    EditText userID, password, confirmPassword, emailPassword;
     Button goRegister;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref;
     ProgressDialog progressDialog;
-    String user, cutUser, ePass, pass;
+    String user, cutUser, ePass, fPass, conPass;
 
 
     @Override
@@ -47,7 +45,8 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
 
         userID = (EditText) findViewById(R.id.LoginUserID);
         emailPassword = (EditText)  findViewById(R.id.emailPass);
-        password = (EditText) findViewById(R.id.LoginPassword);
+        password = (EditText) findViewById(R.id.firstPass);
+        confirmPassword = (EditText) findViewById(R.id.LoginPassword);
         goRegister = (Button) findViewById(R.id.nextPage);
 
         progressDialog = new ProgressDialog(this);
@@ -65,16 +64,19 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
         user = userID.getText().toString();
         cutUser = user.substring(0, user.indexOf("@"));
         ePass = emailPassword.getText().toString();
-        pass = password.getText().toString();
+        fPass = password.getText().toString();
+        conPass = confirmPassword.getText().toString();
 
-        if (user.equals("") || pass.equals("")  || ePass.equals("")  ){
+        if (user.equals("") || conPass.equals("")  || ePass.equals("") || fPass.equals("")){
             Toast.makeText(this, "Empty String Forbidden", Toast.LENGTH_SHORT).show();
         }
 
         if (!user.endsWith("@my.centennialcollege.ca")) {
             Toast.makeText(this, "Only Centennial Email Allowed", Toast.LENGTH_SHORT).show();
         }
-
+        else if(!conPass.equals(fPass)){
+            Toast.makeText(this, "Please match the passwords", Toast.LENGTH_SHORT).show();
+        }
         else{
             ref = firebaseDatabase.getReference("MunchiesDB").child("Emails").child(cutUser);
             ref.addValueEventListener(new ValueEventListener() {
@@ -84,11 +86,10 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
                     String getEmail = check.getEmail();
                     String getP = check.getPassword();
                     if(user.equals(getEmail) && ePass.equals(getP)){
-                        Toast.makeText(getApplicationContext(), "User found", Toast.LENGTH_LONG).show();
                         //therefore it must be created
                         progressDialog.setMessage("Processing Registration");
                         progressDialog.show();
-                        firebaseAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(SearchRegistered.this, new OnCompleteListener<AuthResult>() {
+                        firebaseAuth.createUserWithEmailAndPassword(user, conPass).addOnCompleteListener(SearchRegistered.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
@@ -107,8 +108,6 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
 
                             }
                         });
-
-
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "user not found", Toast.LENGTH_LONG).show();
@@ -131,7 +130,5 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
                 goReg();
         }
     }
-
-
 
 }

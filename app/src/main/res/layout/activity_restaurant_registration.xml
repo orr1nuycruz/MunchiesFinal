@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="93dp"
             android:layout_height="wrap_content"
-            android:text="Restaurant ID: "
+            android:text="ID Key: "
             android:textSize="14sp" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/editID"
             android:textSize="24dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:textStyle="bold|italic" />
 
     </LinearLayout>
@@ -71,8 +71,6 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent">
@@ -82,6 +80,24 @@
             android:layout_height="wrap_content"
             android:text="@string/password"
             android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editRestaurantFirstPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password"
+            android:textSize="12sp" />
 
         <EditText
             android:id="@+id/editRestaurantRegisterPassword"
