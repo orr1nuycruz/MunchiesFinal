@@ -140,7 +140,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
                     currentPage();
                     progressDialog.cancel();

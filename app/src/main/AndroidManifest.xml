@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantLogin"></activity>
+        <activity android:name=".RestaurantLogin"
+                  android:label="Restaurant View"
+                  android:noHistory="true"/>
         <activity android:name=".ShowFirebaseActivity" />
         <activity android:name=".AddFireBaseActivity" />
         <activity android:name=".Homepage">

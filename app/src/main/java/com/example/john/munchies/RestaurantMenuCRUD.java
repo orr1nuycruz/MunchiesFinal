@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -69,6 +70,11 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
         addMenu();
         deleteMenuItem();
         updateMenuItem();
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 
     public void addMenu(){
