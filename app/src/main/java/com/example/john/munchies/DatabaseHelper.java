@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     String InsertIntoRegistered =
             "INSERT INTO " + TABLE_REGISTERED + "(" + REGISTERED_ID + ", " + PASSWORD + ") " +
-                    "VALUES(300898431, 'password'), " +
+                    "VALUES(300898431, confirmPassword), " +
                     "      (300451287, 'asdf987'), " +
                     "      (302487958, '987pass');";
 

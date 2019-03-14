@@ -1,5 +1,6 @@
 package com.example.john.munchies;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +17,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RestaurantRegistration extends AppCompatActivity {
 
-    EditText restName, restID, restUser, restPass;
+    EditText restName, restID, restUser, restFPass, restPass;
     Button reg;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref, ref2;
-    String getName, getID, getUser, getPass;
+    String getName, getID, getUser, getFPass, getPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class RestaurantRegistration extends AppCompatActivity {
         restName = (EditText) findViewById(R.id.editRestaurantName);
         restID = (EditText) findViewById(R.id.editID);
         restUser = (EditText) findViewById(R.id.editRestaurantDisplayName);
+        restFPass = (EditText) findViewById(R.id.editRestaurantFirstPassword);
         restPass = (EditText)  findViewById(R.id.editRestaurantRegisterPassword);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -42,10 +44,14 @@ public class RestaurantRegistration extends AppCompatActivity {
                 getName = restName.getText().toString();
                 getID = restID.getText().toString();
                 getUser = restUser.getText().toString();
+                getFPass = restFPass.getText().toString();
                 getPass = restPass.getText().toString();
 
-                if (getName.equals("") || getID.equals("")  || getUser.equals("") || getPass.equals("")  ){
+                if (getName.equals("") || getID.equals("")  || getUser.equals("") || getFPass.equals("") || getPass.equals("")  ){
                     Toast.makeText(getApplicationContext(), "Empty Strings", Toast.LENGTH_SHORT).show();
+                }
+                else if(!getPass.equals(getFPass)){
+                    Toast.makeText(getApplicationContext(), "Confirm the right password", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     ref = firebaseDatabase.getReference("MunchiesDB").child("Restaurants").child(getName);
@@ -60,12 +66,14 @@ public class RestaurantRegistration extends AppCompatActivity {
                                 ref2 = firebaseDatabase.getReference("MunchiesDB").child("RestaurantsUsers");
                                 RestaurantUserClass resclass = new RestaurantUserClass(getName, getUser, getPass);
                                 ref2.child(getUser).setValue(resclass);
-                                Toast.makeText(getApplicationContext(), "Restaurant user added", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Restaurant user added", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(RestaurantRegistration.this, RestaurantLogin.class);
+                                startActivity(i);
+
                             }
                             else{
                                 Toast.makeText(getApplicationContext(), "Restaurant not found", Toast.LENGTH_SHORT).show();
                             }
-
 
                         }
 

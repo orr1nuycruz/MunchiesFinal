@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,18 +27,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     DatabaseHelper myDB;
     EditText loginname, loginpass;
     String email, password;
-    Button register;
-    Button login;
-    Button changePassword;
-    Button logout;
-    Button next;
-    Button GoAddRes;
-    Button GotoRest;
+    Button register, login, changePassword, logout, next, GoAddRes, GotoRest;
+    LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
     ProgressDialog progressDialog;
-
-    String  getname, getpass;
 
     //Firebase AUTH
     FirebaseAuth mAuth;
@@ -50,9 +44,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
 
-        //Check if user is signed in
-     //   FirebaseUser currentUser = mAuth.getCurrentUser();
-       // mAuth.addAuthStateListener(mAuthListner);
     }
 
 
@@ -69,7 +60,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
 
         //View
-
         loginname = (EditText) findViewById(R.id.editLoginUserID);
         loginpass = (EditText) findViewById(R.id.editLoginPassword);
 
@@ -84,6 +74,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
         txtv= (TextView)findViewById(R.id.txtloginMessage);
+
+        admView = (LinearLayout) findViewById(R.id.adminView);
+        custView = (LinearLayout) findViewById(R.id.customerView) ;
 
         progressDialog = new ProgressDialog(this);
 
@@ -139,7 +132,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void Login(){
         password = loginpass.getText().toString();
         email = loginname.getText().toString();
-
         progressDialog.setMessage("Processing Login Page");
         progressDialog.show();
 
@@ -179,10 +171,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 txtlogin.setVisibility(View.INVISIBLE);
                 txtpass.setVisibility(View.INVISIBLE);
 
-                changePassword.setVisibility(View.INVISIBLE);
-                logout.setVisibility(View.VISIBLE);
-                next.setVisibility(View.INVISIBLE);
+                custView.setVisibility(View.INVISIBLE);
                 txtv.setText("Welcome Admin");
+
+                GotoRest.setVisibility(View.INVISIBLE);
+                logout.setVisibility(View.VISIBLE);
 
                 GoAddRes.setVisibility(View.VISIBLE);
             }
@@ -195,11 +188,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 txtlogin.setVisibility(View.INVISIBLE);
                 txtpass.setVisibility(View.INVISIBLE);
 
-                txtv.setText("Welcome Back Munchee: " + mAuth.getCurrentUser().getEmail());
+                String myEmail = mAuth.getCurrentUser().getEmail();
+                String kept = myEmail.substring(0, myEmail.indexOf("@"));
+                txtv.setText("Welcome Back " + kept + "!");
 
-                changePassword.setVisibility(View.VISIBLE);
+                custView.setVisibility(View.VISIBLE);
+
                 logout.setVisibility(View.VISIBLE);
-                next.setVisibility(View.VISIBLE);
+                GotoRest.setVisibility(View.INVISIBLE);
+
                 GoAddRes.setVisibility(View.INVISIBLE);
             }
 
@@ -216,10 +213,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             txtv.setText("Login");
 
-            changePassword.setVisibility(View.INVISIBLE);
-            logout.setVisibility(View.INVISIBLE);
-            next.setVisibility(View.INVISIBLE);
+            custView.setVisibility(View.INVISIBLE);
+
+            GotoRest.setVisibility(View.VISIBLE);
             GoAddRes.setVisibility(View.INVISIBLE);
+
+            logout.setVisibility(View.INVISIBLE);
         }
 
 
