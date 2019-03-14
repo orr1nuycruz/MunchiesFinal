@@ -67,6 +67,8 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
 
         displayRestaurantList();
         addMenu();
+        deleteMenuItem();
+        updateMenuItem();
     }
 
     public void addMenu(){
@@ -83,7 +85,7 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
                     Toast.makeText( RestaurantMenuCRUD.this, "Please fill out all information", Toast.LENGTH_LONG).show();
                 } else {
                     RestaurantItemClass menu = new RestaurantItemClass( getRestaurantItemName, getRestaurantName, price);
-                    myRef.child(getRestaurantName).child(getRestaurantItemName).setValue(menu);
+                    myRef.child(getRestaurantItemName).setValue(menu);
                     editRestaurantMenuName.setText("");
                     editRestaurantMenuPrice.setText("");
                 }
@@ -91,13 +93,36 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
         });
     }
 
+    public void updateMenuItem(){
 
-    public void deleteRestaurant(){
+
+        btnUpdateMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //GET position of the selected item
+
+                String getRestaurantItemName = editRestaurantMenuName.getText().toString();
+                String getRestaurantPrice = editRestaurantMenuPrice.getText().toString();
+                String getRestaurantName = restaurantName.toString();
+                Double price = Double.valueOf(getRestaurantPrice).doubleValue();
+
+                if(!getRestaurantItemName.isEmpty() && getRestaurantItemName.length() > 0){
+                    RestaurantItemClass menu = new RestaurantItemClass( getRestaurantItemName, getRestaurantName, price);
+                    myRef.child(getRestaurantItemName).setValue(menu);
+                }
+
+            }
+        });
+    }
+
+
+    public void deleteMenuItem(){
         final RestaurantItemClass restaurant = new RestaurantItemClass();
         restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 restaurant.setItemID(restaurantMenuArrayList.get(position));
+                editRestaurantMenuName.setText(restaurantMenuArrayList.get(position));
             }
         });
 
@@ -105,13 +130,16 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String name = restaurant.getItemID();
+                Toast.makeText(getApplicationContext(), "Deleted " +  name  + " item menu", Toast.LENGTH_SHORT).show();
                 if(name.equals("")){
                     Toast.makeText( RestaurantMenuCRUD.this, "Please Select item before delete!", Toast.LENGTH_LONG).show();
                 } else {
-                    myRef.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+                    myRef.child(restaurantName).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             myRef.child(name).removeValue();
+                            editRestaurantMenuName.setText("");
+                            editRestaurantMenuPrice.setText("");
                         }
 
                         @Override
@@ -122,6 +150,8 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     //Display the restaurant name from the database
@@ -144,7 +174,7 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
         restaurantMenuArrayList.clear();
         for(DataSnapshot item: dataSnapshot.getChildren()){
             RestaurantItemClass restaurant = item.getValue(RestaurantItemClass .class);
-            restaurantMenuArrayList.add(restaurant.getItemName() + " " + restaurant.getPrice());
+            restaurantMenuArrayList.add(restaurant.getItemName());
         }
 
 

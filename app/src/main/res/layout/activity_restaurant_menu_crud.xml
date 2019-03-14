@@ -41,9 +41,10 @@
             android:text="@string/menuPrice"/>
 
         <EditText
+            android:id="@+id/EditMenuPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/EditMenuPrice"/>
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +74,7 @@
     </LinearLayout>
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listMenuItemCRUD">
 

@@ -118,6 +118,7 @@ public class AdminAddRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String name = restaurant.getRestaurantID();
+                Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
                 if(name.equals("")){
                     Toast.makeText( AdminAddRestaurant.this, "Please Select item before delete!", Toast.LENGTH_LONG).show();
                 } else {

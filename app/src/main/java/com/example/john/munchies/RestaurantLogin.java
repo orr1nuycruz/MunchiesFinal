@@ -59,7 +59,7 @@ public class RestaurantLogin extends AppCompatActivity {
                                 editor.putString("User", getUser);
                                 editor.putString("RestName", name);
                                 editor.apply();
-                                Intent i = new Intent(RestaurantLogin.this, RestaurantAddItem.class);
+                                Intent i = new Intent(RestaurantLogin.this, RestaurantMenuCRUD.class);
                                 startActivity(i);
                             }
                             else{
