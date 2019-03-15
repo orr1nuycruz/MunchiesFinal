@@ -34,18 +34,26 @@ public class Restaurant extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
+
+        //Firebase Database
         myFB = FirebaseDatabase.getInstance();
-        myRef = myFB.getReference("MunchiesDB");
+
+
+        //View
         restaurantList = (ListView)findViewById(R.id.restaurantListView);
+
+        //
         restaurantArrayList = new ArrayList<String>();
         displayRestaurantList();
         getMenuDetails();
 
     }
 
-    //Display the restaurant name from the database
+    //Display the restaurant name to the databa
     public void displayRestaurantList(){
+//Root munchies, child restaurants
         myRef = myFB.getReference("MunchiesDB").child("Restaurants");
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -77,10 +85,14 @@ public class Restaurant extends AppCompatActivity {
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Get the position
                 String restaurantName = String.valueOf(restaurantList.getItemAtPosition(position));
+                //Get Placement
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = preferences.edit();
+                //Get the string
                 editor.putString("RestaurantName", restaurantName);
+                //Save
                 editor.apply();
                 Intent myIntent = new Intent(Restaurant.this, RestaurantMenu.class);
                 startActivity(myIntent);

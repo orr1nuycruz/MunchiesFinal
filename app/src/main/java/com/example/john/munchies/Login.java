@@ -2,13 +2,16 @@ package com.example.john.munchies;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +27,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     DatabaseHelper myDB;
     EditText loginname, loginpass;
     String email, password;
-    Button register;
-    Button login;
-    Button changePassword;
-    Button logout;
-    Button next;
+    Button register, login, changePassword, logout, next, GoAddRes, GotoRest;
+    LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
     ProgressDialog progressDialog;
-
-    String  getname, getpass;
 
     //Firebase AUTH
     FirebaseAuth mAuth;
@@ -46,9 +44,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
 
-        //Check if user is signed in
-        //   FirebaseUser currentUser = mAuth.getCurrentUser();
-        // mAuth.addAuthStateListener(mAuthListner);
     }
 
 
@@ -65,7 +60,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
 
         //View
-
         loginname = (EditText) findViewById(R.id.editLoginUserID);
         loginpass = (EditText) findViewById(R.id.editLoginPassword);
 
@@ -74,15 +68,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         logout = (Button)findViewById(R.id.logout);
         changePassword = (Button) findViewById((R.id.CheckRows));
         next = (Button) findViewById((R.id.next));
+        GoAddRes = (Button) findViewById(R.id.addRes);
+        GotoRest = (Button) findViewById(R.id.goRestaurant);
 
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
         txtv= (TextView)findViewById(R.id.txtloginMessage);
 
+        admView = (LinearLayout) findViewById(R.id.adminView);
+        custView = (LinearLayout) findViewById(R.id.customerView) ;
+
         progressDialog = new ProgressDialog(this);
 
         //View Config
-
         configView();
 
 
@@ -92,6 +90,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         logout.setOnClickListener(this);
         register.setOnClickListener(this);
         next.setOnClickListener(this);
+        GoAddRes.setOnClickListener(this);
+        GotoRest.setOnClickListener(this);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("userEmail", loginname.toString());
+        editor.apply();
+
 
     }
 
@@ -114,13 +120,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (view == next){
             nextPage();
         }
+        if(view == GoAddRes){
+            AddAdminRes();
+        }
+        if(view == GotoRest){
+            RestaurantLogin();
+        }
 
     }
 
     public void Login(){
         password = loginpass.getText().toString();
         email = loginname.getText().toString();
-
         progressDialog.setMessage("Processing Login Page");
         progressDialog.show();
 
@@ -129,7 +140,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
                     currentPage();
                     progressDialog.cancel();
@@ -141,36 +151,57 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     progressDialog.cancel();
 
                     //failed
-
                 }
                 progressDialog.cancel();
 
             }
         });
-
-
-
-
     }
 
     public void configView(){
 
         if (mAuth.getCurrentUser() != null){
-            register.setVisibility(View.INVISIBLE);
-            login.setVisibility(View.INVISIBLE);
-            loginname.setVisibility(View.INVISIBLE);
-            loginpass.setVisibility(View.INVISIBLE);
-            txtlogin.setVisibility(View.INVISIBLE);
-            txtpass.setVisibility(View.INVISIBLE);
+            if(mAuth.getCurrentUser().getEmail().equals("admin@myadmin.ca")) {
+                register.setVisibility(View.INVISIBLE);
+                login.setVisibility(View.INVISIBLE);
+                loginname.setVisibility(View.INVISIBLE);
+                loginpass.setVisibility(View.INVISIBLE);
 
-            txtv.setText("Welcome Back Munchee: " + mAuth.getCurrentUser().getEmail());
+                txtlogin.setVisibility(View.INVISIBLE);
+                txtpass.setVisibility(View.INVISIBLE);
 
-            changePassword.setVisibility(View.VISIBLE);
-            logout.setVisibility(View.VISIBLE);
-            next.setVisibility(View.VISIBLE);
+                custView.setVisibility(View.INVISIBLE);
+                txtv.setText("Welcome Admin");
+
+                GotoRest.setVisibility(View.INVISIBLE);
+                logout.setVisibility(View.VISIBLE);
+
+                GoAddRes.setVisibility(View.VISIBLE);
+            }
+            else{
+                register.setVisibility(View.INVISIBLE);
+                login.setVisibility(View.INVISIBLE);
+                loginname.setVisibility(View.INVISIBLE);
+                loginpass.setVisibility(View.INVISIBLE);
+
+                txtlogin.setVisibility(View.INVISIBLE);
+                txtpass.setVisibility(View.INVISIBLE);
+
+                String myEmail = mAuth.getCurrentUser().getEmail();
+                String kept = myEmail.substring(0, myEmail.indexOf("@"));
+                txtv.setText("Welcome Back " + kept + "!");
+
+                custView.setVisibility(View.VISIBLE);
+
+                logout.setVisibility(View.VISIBLE);
+                GotoRest.setVisibility(View.INVISIBLE);
+
+                GoAddRes.setVisibility(View.INVISIBLE);
+            }
 
         }
-        else{
+
+        else {
             register.setVisibility(View.VISIBLE);
             login.setVisibility(View.VISIBLE);
             loginname.setVisibility(View.VISIBLE);
@@ -181,11 +212,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             txtv.setText("Login");
 
+            custView.setVisibility(View.INVISIBLE);
 
+            GotoRest.setVisibility(View.VISIBLE);
+            GoAddRes.setVisibility(View.INVISIBLE);
 
-            changePassword.setVisibility(View.INVISIBLE);
             logout.setVisibility(View.INVISIBLE);
-            next.setVisibility(View.INVISIBLE);
         }
 
 
@@ -216,6 +248,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void register (){
         Intent i = new Intent(Login.this, SearchRegistered.class);
+        startActivity(i);
+    }
+
+    public void RestaurantLogin (){
+        Intent i = new Intent(Login.this, RestaurantLogin.class);
+        startActivity(i);
+    }
+
+    public void AddAdminRes (){
+        Intent i = new Intent(Login.this, AdminAddRestaurant.class);
         startActivity(i);
     }
 }
