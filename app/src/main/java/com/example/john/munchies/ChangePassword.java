@@ -70,7 +70,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     public void changePass(){
 
         //Firebase User
-       user =  mAuth.getCurrentUser();
+        user =  mAuth.getCurrentUser();
         if(user != null){
 
             //Get Values
@@ -81,7 +81,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
             //Check if email aligns with password
             AuthCredential credential = EmailAuthProvider.getCredential(email,oldPassword);
             progressDialog.setMessage("Changing Password...");
-progressDialog.show();
+            progressDialog.show();
             // Prompt the user to provide their sign-in credentials USING the Current user's info
             user.reauthenticate(credential).addOnCompleteListener(this, new OnCompleteListener<Void>() {
                 @Override

@@ -26,7 +26,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     DatabaseHelper myDB;
     EditText loginname, loginpass;
+
     String email, password;
+    SharedPreferences.Editor editor;
+    SharedPreferences preferences;
     Button register, login, changePassword, logout, next, GoAddRes, GotoRest;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
@@ -35,11 +38,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     //Firebase AUTH
     FirebaseAuth mAuth;
-   // FirebaseAuth.AuthStateListener mAuthListner;
+    // FirebaseAuth.AuthStateListener mAuthListner;
 
 
 
-//OnStart is way before the views
+    //OnStart is way before the views
     @Override
     protected void onStart() {
         super.onStart();
@@ -53,7 +56,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-         //SQLITE Database
+        //SQLITE Database
         myDB = new DatabaseHelper(this);
 
         //Firebase Database
@@ -93,10 +96,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         GoAddRes.setOnClickListener(this);
         GotoRest.setOnClickListener(this);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("userEmail", loginname.toString());
-        editor.apply();
+         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    editor = preferences.edit();
+
 
 
     }
@@ -141,6 +143,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
+
+                   String val = email.substring(0, email.indexOf("@"));
+                    editor.putString("userEmail", val);
+                    editor.apply();
+
                     currentPage();
                     progressDialog.cancel();
 

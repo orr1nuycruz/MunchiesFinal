@@ -1,5 +1,6 @@
 package com.example.john.munchies;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,7 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
 
@@ -28,9 +35,17 @@ public class RestaurantMenu extends AppCompatActivity {
     DatabaseReference myRef;
 
     String restaurantName;
-    String userEmail;
+    String userEmail, menuItem;
+    String food;
+    ArrayList<String> orderItems;
+   Double orderPrice;
 
+
+    RestaurantItemClass restaurant;
     ListView restaurantMenuList;
+    Set<String> set;
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPref;
     ArrayList<String> restaurantMenuArrayList;
     ArrayAdapter<String> restaurantMenuAdapter;
 
@@ -42,10 +57,17 @@ public class RestaurantMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_menu);
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+       sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+         editor = sharedPref.edit();
+      set  = new HashSet<String>();
+
+
         restaurantName = sharedPref.getString("RestaurantName", "");
+
         userEmail = sharedPref.getString("userEmail", "");
 
+       orderItems = new ArrayList<String>();
+       orderPrice = 0.0;
         myFB = FirebaseDatabase.getInstance();
         myRef = myFB.getReference("MunchiesDB");
 
@@ -55,15 +77,19 @@ public class RestaurantMenu extends AppCompatActivity {
         restaurantMenuArrayList = new ArrayList<String>();
 
         displayRestaurantList();
-//        addMenuToMyCart();
+        addItems();
+      //    addMenuToMyCart();
     }
 
     //Display the restaurant name from the database
     public void displayRestaurantList(){
+
+        //Get the restaurant Items under restaurant name
         myRef = myFB.getReference("MunchiesDB").child("RestaurantItems").child(restaurantName);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Shos data
                 showData(dataSnapshot);
             }
 
@@ -74,30 +100,112 @@ public class RestaurantMenu extends AppCompatActivity {
         });
     }
 
+    public void addItems() {
+
+
+                restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        //Get the values, and split the prices
+
+                        //got the position
+                        menuItem = String.valueOf(adapterView.getItemAtPosition(position));
+
+
+                        String[] parts = menuItem.split("-"); //Array, each element is text between a dash
+                       double parsePrice = Double.parseDouble(parts[1]);
+
+                       if (restaurantMenuList.isItemChecked(position)){
+                           orderItems.add(menuItem);
+                           orderPrice += parsePrice;
+
+                           Toast.makeText(RestaurantMenu.this, "Added " + menuItem, Toast.LENGTH_SHORT).show();
+
+                       }
+                       else{
+                           orderItems.remove(menuItem);
+                           orderPrice -= parsePrice;
+
+                           Toast.makeText(RestaurantMenu.this, "Removed " + menuItem, Toast.LENGTH_SHORT).show();
+                       }
+
+
+
+
+                    }
+
+                });
+
+
+                //Create a firebase for the order
+
+
+                //I have to add it to my shared preferences
+                //Then start the next Activity
+        btnAddToMyCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                set.addAll(orderItems);
+                editor.putString("orderPrice", Double.toString(orderPrice));
+                editor.putStringSet("order", set);
+                editor.commit();
+
+
+                nextPage();
+            }
+
+            });
+    }
+
+
     public void showData(DataSnapshot dataSnapshot){
         restaurantMenuArrayList.clear();
         for(DataSnapshot item: dataSnapshot.getChildren()){
-            RestaurantItemClass restaurant = item.getValue(RestaurantItemClass .class);
-            restaurantMenuArrayList.add(restaurant.getItemName() + " " + restaurant.getPrice());
+            //Innitiate class - get the value of the item class
+
+            //DOES NOT KNOW HOW THIS WORKS
+            restaurant = item.getValue(RestaurantItemClass .class);
+            //Add it to our Arraylist
+
+            restaurantMenuArrayList.add(restaurant.getItemName() + "\n-" + restaurant.getPrice());
+
+
+
         }
 
 
+        //Adapter
         restaurantMenuAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, restaurantMenuArrayList);
+                android.R.layout.simple_list_item_multiple_choice, restaurantMenuArrayList);
+
+        //Last, add to list view
+
         restaurantMenuList.setAdapter(restaurantMenuAdapter);
 
     }
+
+
+
 
     public void addMenuToMyCart(){
         btnAddToMyCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+
                         RestaurantItemClass item = new RestaurantItemClass();
+                      //get the values
                         String getUserEmail = userEmail;
                         String getRestaurant = restaurantName;
+                        //nothing in there???
                         String getItemName = item.getItemName();
                         Double Price = Double.valueOf(item.getPrice()).doubleValue();
                         String toast = String.valueOf(restaurantMenuList.getItemAtPosition(position));
@@ -117,5 +225,9 @@ public class RestaurantMenu extends AppCompatActivity {
 
     }
 
+    public void nextPage(){
+        Intent i = new Intent(this,RestaurantOrder.class);
+        startActivity(i);
+    }
 
 }
