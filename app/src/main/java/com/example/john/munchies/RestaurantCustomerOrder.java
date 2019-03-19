@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,14 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-public class RestaurantOrder extends AppCompatActivity implements View.OnClickListener {
+public class RestaurantCustomerOrder extends AppCompatActivity implements View.OnClickListener {
 
     ListView order;
     TextView price;
@@ -51,7 +48,7 @@ public class RestaurantOrder extends AppCompatActivity implements View.OnClickLi
 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_order);
+        setContentView(R.layout.activity_restaurant_customer_order);
         // Shared Preferences
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -131,11 +128,46 @@ public void placeOrder(){
 
 }
 
+//    public void deleteMenuItem(){
+//        final RestaurantItemClass restaurant = new RestaurantItemClass();
+//        restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                restaurant.setItemID(restaurantMenuArrayList.get(position));
+//                editRestaurantMenuName.setText(restaurantMenuArrayList.get(position));
+//            }
+//        });
+//
+//        btnDeleteMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final String name = restaurant.getItemID();
+//                Toast.makeText(getApplicationContext(), "Deleted " +  name  + " item menu", Toast.LENGTH_SHORT).show();
+//                if(name.equals("")){
+//                    Toast.makeText( RestaurantMenuCRUD.this, "Please Select item before delete!", Toast.LENGTH_LONG).show();
+//                } else {
+//                    myRef.child(restaurantName).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            myRef.child(name).removeValue();
+//                            editRestaurantMenuName.setText("");
+//                            editRestaurantMenuPrice.setText("");
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//    }
+
 //Prevents user from moving back
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
 }
 
 

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,14 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
 
 public class RestaurantMenu extends AppCompatActivity {
 
@@ -226,7 +220,7 @@ public class RestaurantMenu extends AppCompatActivity {
     }
 
     public void nextPage(){
-        Intent i = new Intent(this,RestaurantOrder.class);
+        Intent i = new Intent(this, RestaurantCustomerOrder.class);
         startActivity(i);
     }
 

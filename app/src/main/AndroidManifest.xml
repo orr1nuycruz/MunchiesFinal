@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantOrder"></activity>
+        <activity android:name=".RestaurantCustomerOrder"></activity>
         <activity
             android:name=".RestaurantLogin"
             android:label="Restaurant View"
@@ -33,7 +33,6 @@
         <activity
             android:name=".Login"
             android:noHistory="true" />
-        <activity android:name=".AdminPage" />
         <activity
             android:name=".AdminAddRestaurant"
             android:noHistory="true" />
@@ -42,8 +41,6 @@
             android:name=".RestaurantRegistration"
             android:noHistory="true" />
         <activity android:name=".RestaurantAddItem" />
-        <activity android:name=".CustomerCart" />
-        <activity android:name=".CustomerPurchaseHistory" />
         <activity android:name=".RestaurantMenuCRUD" />
         <activity android:name=".RestaurantMenu" />
     </application>
