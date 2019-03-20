@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,12 +28,14 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     ListView order;
     TextView price;
     Button checkout_Btn;
+    Button remove_btn;
     List<String> sample;
     String userEmail;
     SimpleDateFormat day;
     SimpleDateFormat hour;
 
     String currentDay;
+    String orderitem;
     String currentHour;
 
     String orderPrice;
@@ -73,6 +76,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
         order = (ListView)findViewById(R.id.order);
         price = (TextView) findViewById(R.id.orderPrice);
         checkout_Btn = (Button) findViewById(R.id.checkout_Btn);
+        remove_btn = (Button) findViewById(R.id.remove_Btn);
 
         //Modify Views
         order.setAdapter(orderItemsAdapter);
@@ -98,8 +102,15 @@ public void onClick(View view){
             placeOrder();
 
         }
-
+        else if ( view == remove_btn)
+        {
+            RemoveItem();
+            recreate();
+        }
 }
+
+
+
 
 public void placeOrder(){
     currentDay = day.format(new Date());
@@ -127,6 +138,27 @@ public void placeOrder(){
 
 
 }
+    public void RemoveItem() {
+
+
+        order.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                orderitem = String.valueOf(adapterView.getItemAtPosition(position));
+
+                if (order.isItemChecked(position)) {
+                    sample.remove(orderitem);
+
+                    Toast.makeText(RestaurantCustomerOrder.this, "Removed " + orderitem, Toast.LENGTH_SHORT).show();
+
+
+                }
+
+
+            }
+
+        });
 
 //    public void deleteMenuItem(){
 //        final RestaurantItemClass restaurant = new RestaurantItemClass();
@@ -168,7 +200,6 @@ public void placeOrder(){
 //    public void onBackPressed() {
 //
 //    }
-}
 
 
-
+    }}
