@@ -126,7 +126,7 @@
                 android:id="@+id/customerView"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/next"
@@ -141,6 +141,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/changePass" />
+
+                <Button
+                    android:id="@+id/addCreditCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/addCreditCard"/>
+
+                <Button
+                    android:id="@+id/viewCreditCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/viewCreditCard"/>
 
             </LinearLayout>
 

@@ -33,6 +33,17 @@
     <string name="btnDelete">Delete</string>
     <string name="restaurantMenu">Menu</string>
     <string name="btnAddToMyCart">Add to my Cart</string>
+    <string name="addCreditCard">Add Credit Card</string>
+    <string name="customerCreditCard">Credit Card Information</string>
+    <string name="holderName">Holder Name:</string>
+    <string name="creditCardNum">Credit Card #:</string>
+    <string name="cvvCode">CVV Code:</string>
+    <string name="date">Date:</string>
+    <string name="customerEmail">Customer Email:</string>
+    <string name="editCreditCard">Update Credit Card</string>
+    <string name="updateCustomerCreditCard">Update Credit Card Information</string>
+    <string name="viewCreditCard">View Credit Cards</string>
+    <string name="creditCardList">Credit Card List</string>
 
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
