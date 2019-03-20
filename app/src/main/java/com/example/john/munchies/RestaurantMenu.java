@@ -51,17 +51,17 @@ public class RestaurantMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_menu);
 
-       sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-         editor = sharedPref.edit();
-      set  = new HashSet<String>();
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sharedPref.edit();
+        set  = new HashSet<String>();
 
 
         restaurantName = sharedPref.getString("RestaurantName", "");
 
         userEmail = sharedPref.getString("userEmail", "");
 
-       orderItems = new ArrayList<String>();
-       orderPrice = 0.0;
+        orderItems = new ArrayList<String>();
+        orderPrice = 0.0;
         myFB = FirebaseDatabase.getInstance();
         myRef = myFB.getReference("MunchiesDB");
 
@@ -72,7 +72,6 @@ public class RestaurantMenu extends AppCompatActivity {
 
         displayRestaurantList();
         addItems();
-      //    addMenuToMyCart();
     }
 
     //Display the restaurant name from the database
@@ -95,42 +94,32 @@ public class RestaurantMenu extends AppCompatActivity {
     }
 
     public void addItems() {
+        restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //Get the values, and split the prices
+                //got the position
+                menuItem = String.valueOf(adapterView.getItemAtPosition(position));
+                String[] parts = menuItem.split("-"); //Array, each element is text between a dash
+                double parsePrice = Double.parseDouble(parts[1]);
 
+                if (restaurantMenuList.isItemChecked(position)){
+                    orderItems.add(menuItem);
+                    orderPrice += parsePrice;
 
-                restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        //Get the values, and split the prices
+                    Toast.makeText(RestaurantMenu.this, "Added " + menuItem, Toast.LENGTH_SHORT).show();
 
-                        //got the position
-                        menuItem = String.valueOf(adapterView.getItemAtPosition(position));
+                }
+                else{
+                    orderItems.remove(menuItem);
+                    orderPrice -= parsePrice;
 
+                    Toast.makeText(RestaurantMenu.this, "Removed " + menuItem, Toast.LENGTH_SHORT).show();
+                }
 
-                        String[] parts = menuItem.split("-"); //Array, each element is text between a dash
-                       double parsePrice = Double.parseDouble(parts[1]);
+            }
 
-                       if (restaurantMenuList.isItemChecked(position)){
-                           orderItems.add(menuItem);
-                           orderPrice += parsePrice;
-
-                           Toast.makeText(RestaurantMenu.this, "Added " + menuItem, Toast.LENGTH_SHORT).show();
-
-                       }
-                       else{
-                           orderItems.remove(menuItem);
-                           orderPrice -= parsePrice;
-
-                           Toast.makeText(RestaurantMenu.this, "Removed " + menuItem, Toast.LENGTH_SHORT).show();
-                       }
-
-
-
-
-                    }
-
-                });
-
-
+        });
                 //Create a firebase for the order
 
 
@@ -139,18 +128,13 @@ public class RestaurantMenu extends AppCompatActivity {
         btnAddToMyCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 set.addAll(orderItems);
                 editor.putString("orderPrice", Double.toString(orderPrice));
                 editor.putStringSet("order", set);
                 editor.commit();
-
-
                 nextPage();
             }
-
-            });
+        });
     }
 
 
@@ -192,11 +176,8 @@ public class RestaurantMenu extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-
-
                         RestaurantItemClass item = new RestaurantItemClass();
-                      //get the values
+                        //get the values
                         String getUserEmail = userEmail;
                         String getRestaurant = restaurantName;
                         //nothing in there???
@@ -212,16 +193,14 @@ public class RestaurantMenu extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
         });
-
     }
 
     public void nextPage(){
         Intent i = new Intent(this, RestaurantCustomerOrder.class);
         startActivity(i);
+
     }
 
 }
