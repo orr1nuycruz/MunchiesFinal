@@ -1,10 +1,12 @@
 package com.example.john.munchies;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,24 +29,23 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
     ListView order;
     TextView price;
-    Button checkout_Btn;
-    Button remove_btn;
+    Button checkout_Btn, remove_btn;
     List<String> sample;
     String userEmail;
-    SimpleDateFormat day;
-    SimpleDateFormat hour;
+    SimpleDateFormat day, hour;
 
-    String currentDay;
-    String orderitem;
-    String currentHour;
+    String currentDay, orderitem, currentHour;
 
-    String orderPrice;
-    String restaurantName;
+    String orderPrice, restaurantName, finalPrice;
+    double doubleOrderPrice;
 
     private ArrayAdapter<String> orderItemsAdapter;
+    Set<String> setOrder;
 
     FirebaseDatabase myFB;
     DatabaseReference myRef;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,11 +55,14 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_restaurant_customer_order);
         // Shared Preferences
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Set<String> setOrder = pref.getStringSet("order",null);
-       orderPrice = pref.getString("orderPrice", null);
-         userEmail = pref.getString("userEmail", null);
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = pref.edit();
+        setOrder = pref.getStringSet("order",null);
+        orderPrice = pref.getString("orderPrice", null);
+        userEmail = pref.getString("userEmail", null);
         restaurantName = pref.getString("RestaurantName", null);
+
+        doubleOrderPrice = Double.parseDouble(orderPrice);
 
         sample=new ArrayList<String>(setOrder);
 
@@ -68,7 +72,6 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
         //Firebase
         myFB = FirebaseDatabase.getInstance();
-
         myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases").child("AuthUser: " + userEmail);
 
 
@@ -80,49 +83,39 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
         //Modify Views
         order.setAdapter(orderItemsAdapter);
-        price.setText("TOTAL: " + orderPrice);
 
         //Listeners
         checkout_Btn.setOnClickListener(this);
 
         //Other
+        price.setText("TOTAL: " + orderPrice);
 
          day = new SimpleDateFormat("yyyy-MM-dd");
          hour = new SimpleDateFormat("HH:mm");
-
+         RemoveItem();
 
 
     }
 
-
-@Override
-
-public void onClick(View view){
-        if(view==checkout_Btn){
+    @Override
+    public void onClick(View view){
+        if (view == checkout_Btn){
             placeOrder();
-
         }
-        else if ( view == remove_btn)
-        {
-            RemoveItem();
-            recreate();
-        }
-}
+
+    }
 
 
 
-
-public void placeOrder(){
+    public void placeOrder(){
     currentDay = day.format(new Date());
     currentHour = hour.format(new Date());
-//Replace Num with KEY
+    //Replace Num with KEY
     Random r = new Random();
     int n = r.nextInt(99999);
 
-
-
     String num = "Order: " + n;
-//TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
+    //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
 
     myRef.child(currentDay).child(num).child("Order").setValue(sample);
     myRef.child(currentDay).child(num).child("HourCreated").setValue(currentHour);
@@ -133,32 +126,33 @@ public void placeOrder(){
 
     if (checkout_Btn.isEnabled() && !userEmail.isEmpty()){
         checkout_Btn.setEnabled(false);
-
     }
 
-
-}
+    }
     public void RemoveItem() {
-
-
-        order.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        order.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                orderitem = String.valueOf(adapterView.getItemAtPosition(position));
-
-                if (order.isItemChecked(position)) {
-                    sample.remove(orderitem);
-
-                    Toast.makeText(RestaurantCustomerOrder.this, "Removed " + orderitem, Toast.LENGTH_SHORT).show();
-
-
-                }
-
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                orderitem = String.valueOf(parent.getItemAtPosition(position));
+                String[] parts = orderitem.split("-"); //Array, each element is text between a dash
+                double parsePrice = Double.parseDouble(parts[1]);
+                doubleOrderPrice-=parsePrice;
+                finalPrice = Double.toString(doubleOrderPrice);
+                editor.putString("orderPrice", finalPrice);
+                editor.apply();
+                setOrder.remove(orderitem);
+                Toast.makeText(RestaurantCustomerOrder.this, "Removed " + orderitem + "Parsed Price: "+ parsePrice, Toast.LENGTH_SHORT).show();
+                recreate();
+                return true;
             }
-
         });
+
+    }
+}
+
+
+
+
 
 //    public void deleteMenuItem(){
 //        final RestaurantItemClass restaurant = new RestaurantItemClass();
@@ -200,6 +194,3 @@ public void placeOrder(){
 //    public void onBackPressed() {
 //
 //    }
-
-
-    }}
