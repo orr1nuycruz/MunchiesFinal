@@ -1,14 +1,19 @@
 package com.example.john.munchies;
 
 public class ComplaintClass {
-    String Name, Phone, OrderId, Issue;
+   private String Name, Phone, OrderId, Issue;
 
-    public void ComplaintClass(String id, String name, String phone, String issue)
+    public ComplaintClass()
     {
-        id = OrderId;
-        name = Name;
-        phone = Phone;
-        issue = Issue;
+
+    }
+
+    public ComplaintClass(String id, String name, String phone, String issue)
+    {
+        OrderId = id;
+        Name = name;
+        Phone = phone;
+        Issue = issue;
 
     }
 

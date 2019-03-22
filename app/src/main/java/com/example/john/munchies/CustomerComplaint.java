@@ -1,5 +1,8 @@
 package com.example.john.munchies;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +21,21 @@ public class CustomerComplaint extends AppCompatActivity {
     DatabaseReference ref, ref2;
     String getName, getOrderId, getPhone, getIssue;
 
+    int value = 1000;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_complaint);
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = pref.edit();
+        if(pref.contains("complaintID")){
+            String getValue = pref.getString("complaintID", null);
+            value = Integer.parseInt(getValue);
+        }
+
         compName = (EditText) findViewById(R.id.CompName);
         compOrderId = (EditText) findViewById(R.id.CompOrderId);
         compPhone = (EditText) findViewById(R.id.CompNumber);
@@ -36,6 +50,7 @@ public class CustomerComplaint extends AppCompatActivity {
         submitComp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getName = compName.getText().toString();
                 getOrderId = compOrderId.getText().toString();
                 getPhone = compPhone.getText().toString();
@@ -45,7 +60,19 @@ public class CustomerComplaint extends AppCompatActivity {
                 }
                 else
                 {
+                    value += 1;
+                    String getValue = Integer.toString(value);
+                    ComplaintClass newcomplaint = new ComplaintClass(getOrderId, getName, getPhone, getIssue);
+                    ref.child("Complaints").child(getValue).setValue(newcomplaint);
+                    editor.putString("complaintID", getValue);
+                    editor.apply();
+                    compName.setText("");
+                    compOrderId.setText("");
+                    compPhone.setText("");
+                    compIssue.setText("");
 
+                    Intent i = new Intent(CustomerComplaint.this, Homepage.class);
+                    startActivity(i);
                 }
 
 
