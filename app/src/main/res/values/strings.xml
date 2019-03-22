@@ -32,6 +32,8 @@
     <string name="btnUpdate">Update</string>
     <string name="btnDelete">Delete</string>
     <string name="restaurantMenu">Menu</string>
+    <string name="restaurantOrders">View Orders</string>
+
     <string name="btnAddToMyCart">Add to my Cart</string>
 
 
@@ -119,4 +121,7 @@
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
     <string name="file_complaint">Complaint</string>
+    <string name="notifyBtn">Accept Customer</string>
+    <string name="deniedBtn">Deny Customer</string>
+    <string name="orderPage">View Current Order </string>
 </resources>

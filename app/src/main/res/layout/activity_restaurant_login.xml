@@ -69,13 +69,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username: "
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:visibility="visible"/>
+                />
 
                 <EditText
                     android:id="@+id/editRestUser"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    />
+                    android:visibility="visible"/>
+                />
             </LinearLayout>
 
 
@@ -90,13 +93,19 @@
                     android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:text="@string/password"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:visibility="visible"/>
+
+                />
+
 
                 <EditText
                     android:id="@+id/editRestPass"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:visibility="visible"/>
+                />
 
             </LinearLayout>
 
@@ -104,13 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/goToAddItems"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Add Restaurant Items"
-                    android:visibility="invisible"/>
+
 
                 <Button
                     android:id="@+id/restLgn"
@@ -118,9 +121,29 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginLeft="30dp"
+                    android:visibility="visible"
                     android:text="Login"/>
 
+                <Button
+                android:id="@+id/goToAddItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Add Restaurant Items"
+                android:visibility="invisible"/>
+
+                <Button
+                    android:id="@+id/goToViewItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="View Restaurant Items"
+                    android:visibility="invisible"/>
+
+
+
             </LinearLayout>
+
         </LinearLayout>
 
 

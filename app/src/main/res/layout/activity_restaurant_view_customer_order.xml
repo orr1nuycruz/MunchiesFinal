@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantViewCustomerOrders"
+    android:orientation="vertical">
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Authorized User"
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/authUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restaurantOrders"
+        android:textSize="15sp"
+        android:layout_gravity="left"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ORDERS: "
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+
+
+
+    <TextView
+        android:id="@+id/order"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restaurantOrders"
+        android:textSize="15dp"
+        android:layout_gravity="left"/>
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PRICE: "
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/price"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restaurantOrders"
+        android:textSize="15dp"
+        android:layout_gravity="left"/>
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hour Posted: "
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+
+
+
+    <TextView
+        android:id="@+id/hourCreated"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restaurantOrders"
+        android:textSize="15sp"
+        android:layout_gravity="left"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/orders_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="View Orders"
+            />
+
+        <Button
+            android:id="@+id/accept_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ACCEPT" />
+
+        <Button
+            android:id="@+id/decline_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DECLINE" />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

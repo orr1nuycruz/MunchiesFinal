@@ -22,7 +22,8 @@ public class RestaurantLogin extends AppCompatActivity {
 //
     EditText txtUser, txtPass;
     String getUser, getPass;
-    Button btnLogin, btnGoReg, btnGoAddItems, btnLogout;
+    Button btnLogin, btnGoReg, btnGoAddItems, btnLogout, btnGoViewItems;
+
     LinearLayout viewUser, viewPass;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref;
@@ -38,6 +39,8 @@ public class RestaurantLogin extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.restLgn);
         btnGoAddItems = (Button) findViewById(R.id.goToAddItems);
         btnLogout = (Button) findViewById(R.id.logout);
+        btnGoViewItems = (Button) findViewById(R.id.goToViewItems);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +62,13 @@ public class RestaurantLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Logout();
+            }
+        });
+
+        btnGoViewItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToViewItems();
             }
         });
 
@@ -87,6 +97,7 @@ public class RestaurantLogin extends AppCompatActivity {
             btnLogin.setVisibility(View.INVISIBLE);
             btnGoReg.setVisibility(View.INVISIBLE);
             btnGoAddItems.setVisibility(View.VISIBLE);
+            btnGoViewItems.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.VISIBLE);
         }
         else{
@@ -94,12 +105,19 @@ public class RestaurantLogin extends AppCompatActivity {
             viewPass.setVisibility(View.VISIBLE);
             btnLogin.setVisibility(View.VISIBLE);
             btnGoReg.setVisibility(View.VISIBLE);
+            btnGoViewItems.setVisibility(View.INVISIBLE);
+
             btnGoAddItems.setVisibility(View.INVISIBLE);
             btnLogout.setVisibility(View.INVISIBLE);
         }
 
     }
 
+    public void goToViewItems(){
+        Intent i = new Intent(RestaurantLogin.this, RestaurantViewOrders.class);
+        startActivity(i);
+
+    }
     public void Logout(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         preferences.edit().clear().apply();

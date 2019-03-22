@@ -20,23 +20,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RestaurantMenu extends AppCompatActivity {
+public class    RestaurantMenu extends AppCompatActivity {
 
     FirebaseDatabase myFB;
     DatabaseReference myRef;
 
     String restaurantName;
     String userEmail, menuItem;
-    String food;
     ArrayList<String> orderItems;
    Double orderPrice;
 
 
     RestaurantItemClass restaurant;
     ListView restaurantMenuList;
+    Date currentDay;
     Set<String> set;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPref;
@@ -51,17 +52,17 @@ public class RestaurantMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_menu);
 
+        //Shared
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sharedPref.edit();
         set  = new HashSet<String>();
-
-
         restaurantName = sharedPref.getString("RestaurantName", "");
-
         userEmail = sharedPref.getString("userEmail", "");
+
 
         orderItems = new ArrayList<String>();
         orderPrice = 0.0;
+        //FireBase
         myFB = FirebaseDatabase.getInstance();
         myRef = myFB.getReference("MunchiesDB");
 

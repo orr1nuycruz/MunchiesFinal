@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantCustomerOrder"
-                  android:noHistory="true"/>
+        <activity
+            android:name=".RestaurantCustomerOrder"
+            android:noHistory="true" />
         <activity
             android:name=".RestaurantLogin"
             android:label="Restaurant View"
@@ -44,7 +45,11 @@
         <activity android:name=".RestaurantAddItem" />
         <activity android:name=".RestaurantMenuCRUD" />
         <activity android:name=".RestaurantMenu" />
-        <activity android:name=".CustomerComplaint"></activity>
+        <activity android:name=".CustomerComplaint" />
+        <activity android:name=".RestaurantViewOrders" />
+        <activity android:name=".RestaurantViewCustomerOrders" />
+        <activity android:name=".RestaurantSuccess" />
+        <activity android:name=".RestaurantDenied"></activity>
     </application>
 
 </manifest>

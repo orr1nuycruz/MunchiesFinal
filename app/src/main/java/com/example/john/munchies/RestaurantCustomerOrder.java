@@ -72,7 +72,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
         //Firebase
         myFB = FirebaseDatabase.getInstance();
-        myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases").child("AuthUser: " + userEmail);
+        myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases");
 
 
         //Views
@@ -117,16 +117,23 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     String num = "Order: " + n;
     //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
 
-    myRef.child(currentDay).child(num).child("Order").setValue(sample);
-    myRef.child(currentDay).child(num).child("HourCreated").setValue(currentHour);
+      myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");
+
+       // myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
+        myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
+
+
+        // myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").setValue(sample);
+    myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("HourCreated").setValue(currentHour);
+        editor.putString("currentDay", currentDay);
+        editor.apply();
+
 
     Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
 
-    myRef.child(currentDay).child(num).child("price").setValue(orderPrice);
+    myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Price").setValue(orderPrice);
 
-    if (checkout_Btn.isEnabled() && !userEmail.isEmpty()){
-        checkout_Btn.setEnabled(false);
-    }
+
 
     }
     public void RemoveItem() {
