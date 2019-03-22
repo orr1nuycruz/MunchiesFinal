@@ -117,6 +117,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     String num = "Order: " + n;
     //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
 
+<<<<<<< HEAD
       myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");
 
        // myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
@@ -134,6 +135,17 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Price").setValue(orderPrice);
 
 
+=======
+    myRef.child(currentDay).child(num).child("Order").setValue(sample);
+    myRef.child(currentDay).child(num).child("HourCreated").setValue(currentHour);
+    myRef.child(currentDay).child(num).child("price").setValue(orderPrice);
+
+    Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
+
+    if (checkout_Btn.isEnabled() && !userEmail.isEmpty()){
+        checkout_Btn.setEnabled(false);
+    }
+>>>>>>> 2532ff19d87e3d27d9a1b7b315df557c55752103
 
     }
     public void RemoveItem() {

@@ -7,106 +7,121 @@
     tools:context=".CustomerComplaint"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/file_complaint"
-        android:textSize="25sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"/>
-
-    <LinearLayout android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
-
-        <TextView
-            android:layout_width="93dp"
-            android:layout_height="wrap_content"
-            android:text="Order ID: "
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/CompOrderId"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="77dp"
-            android:layout_height="wrap_content"
-            android:text="Name: "
-            android:textSize="14sp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/CompName"
-            android:textSize="24dp"
-            android:layout_marginLeft="15dp"
-            android:textStyle="bold|italic" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="93dp"
-            android:layout_height="wrap_content"
-            android:text="Phone Number: "
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/CompNumber"
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-    </LinearLayout>
-
-    <LinearLayout android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
-
-        <TextView
-            android:layout_width="93dp"
-            android:layout_height="wrap_content"
-            android:text="Issue: "
-            android:textSize="14sp" />
-
-    </LinearLayout>
-    <LinearLayout android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
-        <EditText
-            android:id="@+id/CompIssue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minLines="7"
-            android:maxLines="10"
-            android:inputType="textMultiLine"
-            android:gravity="top|left"/>
-
-
-    </LinearLayout>
-
-
-
-
-
-
-    <Button
-        android:id="@+id/btnSubmitComp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/file_complaint"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"/>
+
+            <LinearLayout android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+
+                <TextView
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:text="Order ID: "
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/CompOrderId"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="77dp"
+                    android:layout_height="wrap_content"
+                    android:text="Name: "
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/CompName"
+                    android:textSize="24dp"
+                    android:layout_marginLeft="15dp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number: "
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/CompNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:inputType="phone"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+
+                <TextView
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:text="Issue: "
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+
+                <EditText
+                    android:id="@+id/CompIssue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="7"
+                    android:maxLines="10"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"/>
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnSubmitComp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
 

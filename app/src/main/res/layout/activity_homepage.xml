@@ -99,6 +99,20 @@
                         android:onClick="goToAddRestaurant"/>
                 </TableRow>
 
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+
+                    <Button
+                        android:text="Make Complaint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:onClick="goToComplaint"/>
+
+                </TableRow>
+
             </TableLayout>
 
         </LinearLayout>
