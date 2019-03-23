@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerCreditCard"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/customerCreditCard"
+        android:textSize="25sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="@string/holderName"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/EditHolderName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="@string/creditCardNum"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/EditCreditCardNumber"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/EditCreditCardDate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cvvCode"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/EditCreditCardCVV"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="@string/customerEmail"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/EditCustomerCreditCardEmail"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAddCreditCardInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/addCreditCard"/>
+
+
+
+</LinearLayout>
