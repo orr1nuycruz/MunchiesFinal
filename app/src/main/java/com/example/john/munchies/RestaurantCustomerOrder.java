@@ -119,10 +119,9 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
     myRef.child(currentDay).child(num).child("Order").setValue(sample);
     myRef.child(currentDay).child(num).child("HourCreated").setValue(currentHour);
+    myRef.child(currentDay).child(num).child("price").setValue(orderPrice);
 
     Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
-
-    myRef.child(currentDay).child(num).child("price").setValue(orderPrice);
 
     if (checkout_Btn.isEnabled() && !userEmail.isEmpty()){
         checkout_Btn.setEnabled(false);

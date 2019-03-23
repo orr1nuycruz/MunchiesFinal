@@ -33,5 +33,9 @@ public class Homepage extends AppCompatActivity {
         Intent i = new Intent(Homepage.this, AdminAddRestaurant.class);
         startActivity(i);
     }
+    public void goToComplaint(View v) {
+        Intent i = new Intent(Homepage.this, CustomerComplaint.class);
+        startActivity(i);
+    }
 
 }
