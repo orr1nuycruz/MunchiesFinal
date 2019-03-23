@@ -38,4 +38,9 @@ public class Homepage extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void goToResComplaint(View v) {
+        Intent i = new Intent(Homepage.this, RestauantComplaint.class);
+        startActivity(i);
+    }
+
 }

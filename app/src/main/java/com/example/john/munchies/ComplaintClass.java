@@ -1,7 +1,7 @@
 package com.example.john.munchies;
 
 public class ComplaintClass {
-   private String Name, Email, Restaurant, Phone, OrderId, Issue;
+   private String Name, Email, Restaurant, Phone, OrderId, Issue, Subject;
 
     public ComplaintClass()
     {
@@ -17,9 +17,9 @@ public class ComplaintClass {
         Issue = issue;
     }
 
-    public ComplaintClass(String restaurant, String email, String phone, String issue) {
+    public ComplaintClass(String restaurant, String subject, String phone, String issue) {
         Restaurant = restaurant;
-        Email = email;
+        Subject = subject;
         Phone = phone;
         Issue = issue;
     }
@@ -70,5 +70,13 @@ public class ComplaintClass {
 
     public void setIssue(String issue) {
         Issue = issue;
+    }
+
+    public String getSubject() {
+        return Subject;
+    }
+
+    public void setSubject(String subject) {
+        Subject = subject;
     }
 }

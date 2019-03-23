@@ -113,6 +113,21 @@
 
                 </TableRow>
 
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+
+                    <Button
+                        android:text="Resturant Complaint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:onClick="goToResComplaint"/>
+
+                </TableRow>
+
+
             </TableLayout>
 
         </LinearLayout>

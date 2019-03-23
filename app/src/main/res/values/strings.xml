@@ -130,4 +130,5 @@
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
     <string name="file_complaint">Complaint</string>
+    <string name="file_complaintRes">Restaurant Complaint</string>
 </resources>
