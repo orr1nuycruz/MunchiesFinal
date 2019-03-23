@@ -1,5 +1,5 @@
 package com.example.john.munchies;
-
+//Harvey Cabrias
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;

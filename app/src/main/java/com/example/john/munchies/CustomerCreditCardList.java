@@ -1,5 +1,5 @@
 package com.example.john.munchies;
-
+//Harvey Cabrias
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -26,7 +26,6 @@ public class CustomerCreditCardList extends AppCompatActivity {
     ArrayAdapter<String> customerCreditCardAdapter;
 
     String userEmail;
-    String creditNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,8 @@ public class CustomerCreditCardList extends AppCompatActivity {
         setContentView(R.layout.activity_customer_credit_card_list);
 
         myFB = FirebaseDatabase.getInstance();
-        myRef =  myFB.getReference("MunchiesDB");
+        myRef = myFB.getReference("MunchiesDB");
+
         customerCreditCardArrayList = new ArrayList<String>();
 
         customerCreditCardList = (ListView)findViewById(R.id.customerCreditCardList);
@@ -42,6 +42,7 @@ public class CustomerCreditCardList extends AppCompatActivity {
         userEmail = sharedPref.getString("customerEmail", "");
         displayCreditCardList();
     }
+
 
     //Display the CreditCard from the database
     public void displayCreditCardList(){
@@ -62,8 +63,8 @@ public class CustomerCreditCardList extends AppCompatActivity {
     public void showData(DataSnapshot dataSnapshot){
         customerCreditCardArrayList.clear();
         for(DataSnapshot cards: dataSnapshot.getChildren()){
-            CreditCardClass creditCard = cards.getValue( CreditCardClass.class);
-            customerCreditCardArrayList.add(creditCard.getEmail());
+            CreditCardClass creditCard = cards.getValue(CreditCardClass.class);
+            customerCreditCardArrayList.add(creditCard.getCreditCardNumber());
         }
 
         customerCreditCardAdapter = new ArrayAdapter<String>(this,
