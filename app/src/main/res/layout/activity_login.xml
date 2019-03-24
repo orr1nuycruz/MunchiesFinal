@@ -148,14 +148,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/addCreditCard" />
+                    android:text="@string/addCreditCard"/>
 
                 <Button
                     android:id="@+id/viewCreditCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/viewCreditCard" />
+                    android:text="@string/viewCreditCard"/>
+
 
                 <Button
                     android:id="@+id/viewHistory"

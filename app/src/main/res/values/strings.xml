@@ -44,6 +44,8 @@
     <string name="updateCustomerCreditCard">Update Credit Card Information</string>
     <string name="viewCreditCard">View Credit Cards</string>
     <string name="creditCardList">Credit Card List</string>
+    <string name="creditCardDetail">Credit Card Details</string>
+    <string name="btnDetail">Details</string>
 
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>

@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,7 +29,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email, password;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
-    Button register, login, changePassword, logout, next, GoAddRes, GotoRest, creditCardInfo, viewCreditCard, viewComp, viewFoodHistory;
+    Button register, login, changePassword, logout, next, GoAddRes, GotoRest, creditCardInfo, viewCreditCard ;
+    Button viewComp, viewFoodHistory;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
@@ -97,10 +99,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         next.setOnClickListener(this);
         GoAddRes.setOnClickListener(this);
         GotoRest.setOnClickListener(this);
-        creditCardInfo.setOnClickListener(this);
-        viewCreditCard.setOnClickListener(this);
         viewComp.setOnClickListener(this);
         viewFoodHistory.setOnClickListener(this);
+        creditCardInfo.setOnClickListener(this);
+        viewCreditCard.setOnClickListener(this);
 
          preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     editor = preferences.edit();
@@ -145,7 +147,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(view == viewCreditCard ){
             ViewCustomerCreditCard();
         }
-
         if(view == viewComp){
             ViewComplaintPage();
         }
@@ -305,6 +306,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Intent i = new Intent(Login.this, CustomerCreditCardList.class);
         startActivity(i);
     }
+
+
 
     public void  ViewComplaintPage(){
         Intent i = new Intent(Login.this, ComplaintList.class);
