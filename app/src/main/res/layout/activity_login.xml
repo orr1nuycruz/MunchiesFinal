@@ -36,6 +36,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,15 +46,14 @@
                 android:id="@+id/txtloginMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:textSize="25sp" />
 
             <ImageView
                 android:layout_width="301dp"
                 android:layout_height="273dp"
                 android:layout_gravity="center"
                 android:src="@drawable/munchies_logo" />
-
 
 
             <LinearLayout
@@ -71,30 +71,30 @@
                 <EditText
                     android:id="@+id/editLoginUserID"
                     android:layout_width="250dp"
-                    android:visibility="invisible"
                     android:layout_height="wrap_content"
-                    />
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
 
-            <LinearLayout android:orientation="horizontal"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtLoginPassword"
                     android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:text="@string/password"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/editLoginPassword"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -103,6 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="126dp"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
@@ -126,7 +127,7 @@
                 android:id="@+id/customerView"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/next"
@@ -142,23 +143,53 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/changePass" />
 
+                <Button
+                    android:id="@+id/addCreditCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/addCreditCard"/>
+
+                <Button
+                    android:id="@+id/viewCreditCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/viewCreditCard"/>
+
+
+                <Button
+                    android:id="@+id/viewHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Order History" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/adminView"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/addRes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Add Restaurant"/>
+                    android:layout_marginLeft="20dp"
+                    android:text="Add Restaurant" />
+
+                <Button
+                    android:id="@+id/viewComplaint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="See Complaints" />
+
+
 
             </LinearLayout>
-
 
 
         </LinearLayout>

@@ -1,20 +1,54 @@
 package com.example.john.munchies;
 
 public class ComplaintClass {
-   private String Name, Phone, OrderId, Issue;
+   private String ID, Name, Email, Restaurant, Phone, OrderId, Issue, Subject;
 
     public ComplaintClass()
     {
 
     }
 
-    public ComplaintClass(String id, String name, String phone, String issue)
-    {
-        OrderId = id;
-        Name = name;
+    public ComplaintClass(String id, String restaurant, String subject, String phone, String issue) {
+        ID = id;
+        Restaurant = restaurant;
+        Subject = subject;
         Phone = phone;
         Issue = issue;
+    }
 
+    public ComplaintClass(String id, String name, String email, String restaurant, String phone, String orderId, String issue) {
+        ID = id;
+        Name = name;
+        Email = email;
+        Restaurant = restaurant;
+        Phone = phone;
+        OrderId = orderId;
+        Issue = issue;
+    }
+
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getRestaurant() {
+        return Restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        Restaurant = restaurant;
     }
 
     public String getOrderId() {
@@ -47,5 +81,13 @@ public class ComplaintClass {
 
     public void setIssue(String issue) {
         Issue = issue;
+    }
+
+    public String getSubject() {
+        return Subject;
+    }
+
+    public void setSubject(String subject) {
+        Subject = subject;
     }
 }

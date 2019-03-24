@@ -31,14 +31,15 @@
                     android:onClick="goToReg"/>
 
 
+
                 <Button
-                    android:id="@+id/logout"
+                    android:id="@+id/goComplain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:visibility="invisible"
-                    android:layout_marginLeft="60dp"
-                    android:text="Logout"/>
+                    android:layout_marginLeft="30dp"
+                    android:text="Make Complaint"/>
 
             </LinearLayout>
 
@@ -57,7 +58,6 @@
                 android:src="@drawable/munchies_logo" />
 
 
-
             <LinearLayout
                 android:id="@+id/userView"
                 android:layout_width="fill_parent"
@@ -69,17 +69,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username: "
-                    android:textSize="18sp"
-                    android:visibility="visible"/>
-                />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/editRestUser"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"/>
-                />
+                    />
             </LinearLayout>
+
+
 
 
             <LinearLayout
@@ -97,8 +96,6 @@
                     android:visibility="visible"/>
 
                 />
-
-
                 <EditText
                     android:id="@+id/editRestPass"
                     android:layout_width="250dp"
@@ -114,6 +111,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:visibility="invisible"
+                android:layout_marginLeft="30dp"
+                android:text="Logout"/>
+
+                <Button
+                    android:id="@+id/goToAddItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Add Restaurant Items"
+                    android:visibility="invisible"/>
+        </LinearLayout>
+
+
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/goToComplaint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_gravity="left"
+                    android:text="Complaints"
+                    android:visibility="invisible"/>
 
                 <Button
                     android:id="@+id/restLgn"
@@ -124,13 +154,7 @@
                     android:visibility="visible"
                     android:text="Login"/>
 
-                <Button
-                android:id="@+id/goToAddItems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="Add Restaurant Items"
-                android:visibility="invisible"/>
+
 
                 <Button
                     android:id="@+id/goToViewItems"
@@ -138,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="View Restaurant Items"
-                    android:visibility="invisible"/>
+                    android:visibility="visible"/>
 
 
 

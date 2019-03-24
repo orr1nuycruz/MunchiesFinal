@@ -133,13 +133,6 @@ public class RestaurantViewOrders extends AppCompatActivity implements View.OnCl
         restaurantOrdersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, restaurantOrdersArray);
         restaurantOrdersListView.setAdapter(restaurantOrdersAdapter);
 
-
-
-
-
-
-
-
     }
 
 

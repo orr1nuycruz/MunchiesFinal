@@ -20,17 +20,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CustomerComplaint extends AppCompatActivity {
+public class RestauantComplaint extends AppCompatActivity {
 
-    EditText compName, compOrderId, compPhone, compIssue, compEmail;
+
+    EditText compPhone, compSubject, compIssue;
     Spinner compRest;
     ArrayAdapter<String> restaurantAdapter;
     Button submitComp;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference ref, ref2;
-    String getName, getOrderId, getPhone, getIssue, getEmail,getRest;
+    DatabaseReference ref;
+    String getPhone, getIssue, getSubject ,getRest;
 
     int value = 1000;
     SharedPreferences pref;
@@ -39,19 +39,18 @@ public class CustomerComplaint extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_complaint);
+        setContentView(R.layout.activity_restauant_complaint);
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = pref.edit();
-        if (pref.contains("complaintID")) {
-            String getValue = pref.getString("complaintID", null);
+        if (pref.contains("complaintRestID")) {
+            String getValue = pref.getString("complaintRestID", null);
             value = Integer.parseInt(getValue);
         }
 
-        compName = (EditText) findViewById(R.id.CompName);
-        compOrderId = (EditText) findViewById(R.id.CompOrderId);
         compPhone = (EditText) findViewById(R.id.CompNumber);
         compIssue = (EditText) findViewById(R.id.CompIssue);
-        compEmail = (EditText) findViewById(R.id.EmailText);
+        compSubject =(EditText) findViewById(R.id.CompSubject);
+
 
         compRest = (Spinner) findViewById(R.id.CompRestaurant);
 
@@ -105,31 +104,28 @@ public class CustomerComplaint extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                getName = compName.getText().toString();
-                getOrderId = compOrderId.getText().toString();
-                getEmail = compEmail.getText().toString();
+                getSubject = compSubject.getText().toString();
                 getPhone = compPhone.getText().toString();
                 getIssue = compIssue.getText().toString();
                 getRest = compRest.getSelectedItem().toString();
 
-                if (getName.equals("") || getOrderId.equals("") || getPhone.equals("") || getIssue.equals("") || getEmail.equals("")) {
+                if (getSubject.equals("") || getPhone.equals("") || getIssue.equals("")){
                 }
                 else
                 {
                     value += 1;
                     String getValue = Integer.toString(value);
-                    //ComplaintClass newcomplaint = new ComplaintClass(getOrderId, getName, getPhone, getIssue);
-                    ComplaintClass newcomplaint = new ComplaintClass(getValue, getName, getEmail, getRest, getPhone, getOrderId, getIssue);
-                    ref.child("Complaints").child(getValue).setValue(newcomplaint);
-                    editor.putString("complaintID", getValue);
+//                    ComplaintClass newcomplaint = new ComplaintClass(getOrderId, getName, getPhone, getIssue);
+                    ComplaintClass newcomplaint = new ComplaintClass(getValue, getRest,getPhone,getSubject,getIssue);
+                    ref.child("RestComplaints").child(getValue).setValue(newcomplaint);
+                    editor.putString("complaintRestID", getValue);
                     editor.apply();
-                    compName.setText("");
-                    compOrderId.setText("");
+                    compSubject.setText("");
                     compPhone.setText("");
                     compIssue.setText("");
-                    compEmail.setText("");
 
-                    Intent i = new Intent(CustomerComplaint.this, Homepage.class);
+
+                    Intent i = new Intent(RestauantComplaint.this , Homepage.class);
                     startActivity(i);
                 }
 
@@ -137,4 +133,5 @@ public class CustomerComplaint extends AppCompatActivity {
         });
     }
 }
+
 

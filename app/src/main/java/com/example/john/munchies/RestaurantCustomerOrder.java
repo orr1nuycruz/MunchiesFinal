@@ -43,7 +43,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     Set<String> setOrder;
 
     FirebaseDatabase myFB;
-    DatabaseReference myRef;
+    DatabaseReference myRef, myRef2;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -72,7 +72,8 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
         //Firebase
         myFB = FirebaseDatabase.getInstance();
-        myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases");
+        myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases").child("AuthUser: " + userEmail);
+        myRef2 = myFB.getReference("MunchiesDB").child("OrderHistory").child(userEmail);
 
 
         //Views
@@ -116,6 +117,9 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
     String num = "Order: " + n;
     //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
+    OrderHistoryClass order = new OrderHistoryClass(num, currentDay, orderPrice, sample.toString());
+
+
 
       myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");
 
@@ -137,6 +141,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     myRef.child(currentDay).child(num).child("Order").setValue(sample);
     myRef.child(currentDay).child(num).child("HourCreated").setValue(currentHour);
     myRef.child(currentDay).child(num).child("price").setValue(orderPrice);
+    myRef2.child(num).setValue(order);
 
     Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
 
