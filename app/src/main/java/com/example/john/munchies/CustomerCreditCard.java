@@ -26,6 +26,7 @@ public class CustomerCreditCard extends AppCompatActivity {
     EditText editCustomerCreditCardEmail;
 
     String userEmail;
+    Integer counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class CustomerCreditCard extends AppCompatActivity {
         setContentView(R.layout.activity_customer_credit_card);
 
         myFB = FirebaseDatabase.getInstance();
-        myRef = myFB.getReference("MunchiesDB").child("CustomerCreditCards");
+        myRef = myFB.getReference("MunchiesDB").child("CustomerCreditCard");
 
         btnAddCustomerCreditCard = (Button)findViewById(R.id.btnAddCreditCardInfo);
 
@@ -62,11 +63,14 @@ public class CustomerCreditCard extends AppCompatActivity {
                 String customerEmail = getCustomerCreditCardEmail.substring(0, getCustomerCreditCardEmail.indexOf("@"));
 
 
-                if(getCustomerHolderName.equals("") || getCustomerCreditCardNum.equals("") || getCreditCardDate.equals("") ||
-                        getCreditCardCVV.equals("") || getCustomerCreditCardEmail.equals("")){
+                int creditCardCVV = Integer.parseInt(getCreditCardCVV);
+
+                if(getCustomerHolderName.equals("") || getCustomerCreditCardNum.equals("") ||  getCreditCardDate.equals("") || getCreditCardCVV.equals("")){
                     Toast.makeText( CustomerCreditCard.this, "Please fill out all information", Toast.LENGTH_LONG).show();
                 } else {
-                    CreditCardClass creditCard = new CreditCardClass( getCustomerCreditCardNum, getCustomerHolderName, getCreditCardDate, getCreditCardCVV, getCustomerCreditCardEmail);
+                    counter =+ 1;
+                    String getCustomerCreditCardID = Integer.toString(counter);
+                    CreditCardClass creditCard = new CreditCardClass(getCustomerCreditCardID, getCustomerCreditCardNum, getCustomerHolderName, getCreditCardDate, creditCardCVV, getCustomerCreditCardEmail);
                     myRef.child(customerEmail).child(getCustomerCreditCardNum).setValue(creditCard);
                     editCustomerHolderName.setText("");
                     editCustomerCreditCardNumber.setText("");

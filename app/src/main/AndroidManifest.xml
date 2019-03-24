@@ -47,7 +47,8 @@
         <activity android:name=".RestaurantMenu" />
         <activity android:name=".CustomerComplaint" />
         <activity android:name=".CustomerCreditCard" />
-        <activity android:name=".CustomerCreditCardList"></activity>
+        <activity android:name=".CustomerCreditCardList" />
+        <activity android:name=".CustomerCreditCardDetail"></activity>
     </application>
 
 </manifest>
