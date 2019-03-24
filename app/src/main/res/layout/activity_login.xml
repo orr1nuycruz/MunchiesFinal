@@ -157,6 +157,13 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/viewCreditCard" />
 
+                <Button
+                    android:id="@+id/viewHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Order History" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -178,6 +185,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="See Complaints" />
+
+
 
             </LinearLayout>
 

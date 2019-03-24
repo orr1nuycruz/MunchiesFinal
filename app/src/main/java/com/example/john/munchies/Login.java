@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email, password;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
-    Button register, login, changePassword, logout, next, GoAddRes, GotoRest, creditCardInfo, viewCreditCard, viewComp;
+    Button register, login, changePassword, logout, next, GoAddRes, GotoRest, creditCardInfo, viewCreditCard, viewComp, viewFoodHistory;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
@@ -74,6 +74,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         creditCardInfo = (Button)findViewById(R.id.addCreditCard);
         viewCreditCard = (Button)findViewById(R.id.viewCreditCard);
         viewComp = (Button) findViewById(R.id.viewComplaint);
+        viewFoodHistory = (Button) findViewById(R.id.viewHistory);
 
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
@@ -99,6 +100,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         creditCardInfo.setOnClickListener(this);
         viewCreditCard.setOnClickListener(this);
         viewComp.setOnClickListener(this);
+        viewFoodHistory.setOnClickListener(this);
 
          preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     editor = preferences.edit();
@@ -146,6 +148,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         if(view == viewComp){
             ViewComplaintPage();
+        }
+
+        if(view == viewFoodHistory){
+            ViewHistoryPage();
         }
 
     }
@@ -302,6 +308,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void  ViewComplaintPage(){
         Intent i = new Intent(Login.this, ComplaintList.class);
+        startActivity(i);
+    }
+
+    public void  ViewHistoryPage(){
+        Intent i = new Intent(Login.this, ViewOrderHistory.class);
         startActivity(i);
     }
 }
