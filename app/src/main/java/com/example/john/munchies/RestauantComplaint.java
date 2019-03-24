@@ -115,8 +115,8 @@ public class RestauantComplaint extends AppCompatActivity {
                 {
                     value += 1;
                     String getValue = Integer.toString(value);
-                    //ComplaintClass newcomplaint = new ComplaintClass(getOrderId, getName, getPhone, getIssue);
-                    ComplaintClass newcomplaint = new ComplaintClass(getRest,getPhone,getSubject,getIssue);
+//                    ComplaintClass newcomplaint = new ComplaintClass(getOrderId, getName, getPhone, getIssue);
+                    ComplaintClass newcomplaint = new ComplaintClass(getValue, getRest,getPhone,getSubject,getIssue);
                     ref.child("RestComplaints").child(getValue).setValue(newcomplaint);
                     editor.putString("complaintRestID", getValue);
                     editor.apply();

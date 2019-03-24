@@ -105,11 +105,18 @@
 
 
                     <Button
-                        android:text="Make Complaint"
+                        android:text="Complain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
                         android:onClick="goToComplaint"/>
+
+                    <Button
+                        android:text="RestComplaint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="3"
+                        android:onClick="goToResComplaint"/>
 
                 </TableRow>
 
@@ -117,13 +124,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
-
                     <Button
-                        android:text="Resturant Complaint"
+                        android:text="CompList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:onClick="goToResComplaint"/>
+                        android:layout_column="1"
+                        android:onClick="goToComplaintList"/>
+
 
                 </TableRow>
 

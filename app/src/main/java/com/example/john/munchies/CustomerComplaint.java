@@ -119,7 +119,7 @@ public class CustomerComplaint extends AppCompatActivity {
                     value += 1;
                     String getValue = Integer.toString(value);
                     //ComplaintClass newcomplaint = new ComplaintClass(getOrderId, getName, getPhone, getIssue);
-                    ComplaintClass newcomplaint = new ComplaintClass(getName, getEmail, getRest, getPhone, getOrderId, getIssue);
+                    ComplaintClass newcomplaint = new ComplaintClass(getValue, getName, getEmail, getRest, getPhone, getOrderId, getIssue);
                     ref.child("Complaints").child(getValue).setValue(newcomplaint);
                     editor.putString("complaintID", getValue);
                     editor.apply();

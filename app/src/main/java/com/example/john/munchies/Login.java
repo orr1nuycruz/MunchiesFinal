@@ -3,7 +3,6 @@ package com.example.john.munchies;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,7 +28,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email, password;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
-    Button register, login, changePassword, logout, next, GoAddRes, GotoRest, creditCardInfo, viewCreditCard ;
+    Button register, login, changePassword, logout, next, GoAddRes, GotoRest, creditCardInfo, viewCreditCard, viewComp;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
@@ -75,6 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         GotoRest = (Button) findViewById(R.id.goRestaurant);
         creditCardInfo = (Button)findViewById(R.id.addCreditCard);
         viewCreditCard = (Button)findViewById(R.id.viewCreditCard);
+        viewComp = (Button) findViewById(R.id.viewComplaint);
 
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
@@ -99,6 +98,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         GotoRest.setOnClickListener(this);
         creditCardInfo.setOnClickListener(this);
         viewCreditCard.setOnClickListener(this);
+        viewComp.setOnClickListener(this);
 
          preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     editor = preferences.edit();
@@ -142,6 +142,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         if(view == viewCreditCard ){
             ViewCustomerCreditCard();
+        }
+
+        if(view == viewComp){
+            ViewComplaintPage();
         }
 
     }
@@ -199,6 +203,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 logout.setVisibility(View.VISIBLE);
 
                 GoAddRes.setVisibility(View.VISIBLE);
+                viewComp.setVisibility(View.VISIBLE);
             }
             else{
                 register.setVisibility(View.INVISIBLE);
@@ -219,6 +224,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 GotoRest.setVisibility(View.INVISIBLE);
 
                 GoAddRes.setVisibility(View.INVISIBLE);
+                viewComp.setVisibility(View.INVISIBLE);
             }
 
         }
@@ -238,6 +244,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             GotoRest.setVisibility(View.VISIBLE);
             GoAddRes.setVisibility(View.INVISIBLE);
+            viewComp.setVisibility(View.INVISIBLE);
 
             logout.setVisibility(View.INVISIBLE);
         }
@@ -290,6 +297,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void  ViewCustomerCreditCard(){
         Intent i = new Intent(Login.this, CustomerCreditCardList.class);
+        startActivity(i);
+    }
+
+    public void  ViewComplaintPage(){
+        Intent i = new Intent(Login.this, ComplaintList.class);
         startActivity(i);
     }
 }

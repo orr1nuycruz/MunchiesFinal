@@ -1,14 +1,23 @@
 package com.example.john.munchies;
 
 public class ComplaintClass {
-   private String Name, Email, Restaurant, Phone, OrderId, Issue, Subject;
+   private String ID, Name, Email, Restaurant, Phone, OrderId, Issue, Subject;
 
     public ComplaintClass()
     {
 
     }
 
-    public ComplaintClass(String name, String email, String restaurant, String phone, String orderId, String issue) {
+    public ComplaintClass(String id, String restaurant, String subject, String phone, String issue) {
+        ID = id;
+        Restaurant = restaurant;
+        Subject = subject;
+        Phone = phone;
+        Issue = issue;
+    }
+
+    public ComplaintClass(String id, String name, String email, String restaurant, String phone, String orderId, String issue) {
+        ID = id;
         Name = name;
         Email = email;
         Restaurant = restaurant;
@@ -17,11 +26,13 @@ public class ComplaintClass {
         Issue = issue;
     }
 
-    public ComplaintClass(String restaurant, String subject, String phone, String issue) {
-        Restaurant = restaurant;
-        Subject = subject;
-        Phone = phone;
-        Issue = issue;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getEmail() {

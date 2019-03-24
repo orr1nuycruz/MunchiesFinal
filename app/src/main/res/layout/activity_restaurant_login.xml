@@ -37,8 +37,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:visibility="invisible"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="30dp"
                     android:text="Logout"/>
+
+                <Button
+                    android:id="@+id/goComplain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:visibility="invisible"
+                    android:layout_marginLeft="30dp"
+                    android:text="Make Complaint"/>
 
             </LinearLayout>
 
@@ -109,7 +118,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Add Restaurant Items"
+                    android:text="Add Items"
+                    android:visibility="invisible"/>
+
+                <Button
+                    android:id="@+id/goToComplaint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_gravity="left"
+                    android:text="Complaints"
                     android:visibility="invisible"/>
 
                 <Button

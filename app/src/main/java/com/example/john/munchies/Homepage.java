@@ -43,4 +43,9 @@ public class Homepage extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void goToComplaintList(View v) {
+        Intent i = new Intent(Homepage.this, ComplaintList.class);
+        startActivity(i);
+    }
+
 }

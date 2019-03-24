@@ -22,7 +22,7 @@ public class RestaurantLogin extends AppCompatActivity {
 //
     EditText txtUser, txtPass;
     String getUser, getPass;
-    Button btnLogin, btnGoReg, btnGoAddItems, btnLogout;
+    Button btnLogin, btnGoReg, btnGoAddItems, btnLogout, btnComplaint, btnMakeComp;
     LinearLayout viewUser, viewPass;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref;
@@ -34,10 +34,14 @@ public class RestaurantLogin extends AppCompatActivity {
         txtPass = (EditText) findViewById(R.id.editRestPass);
         viewUser = (LinearLayout) findViewById(R.id.userView);
         viewPass = (LinearLayout) findViewById(R.id.passView);
+
         btnGoReg = (Button) findViewById(R.id.goRegister);
         btnLogin = (Button) findViewById(R.id.restLgn);
         btnGoAddItems = (Button) findViewById(R.id.goToAddItems);
         btnLogout = (Button) findViewById(R.id.logout);
+        btnComplaint = (Button) findViewById(R.id.goToComplaint);
+        btnMakeComp = (Button) findViewById(R.id.goComplain);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +66,20 @@ public class RestaurantLogin extends AppCompatActivity {
             }
         });
 
+        btnComplaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowComplaintList();
+            }
+        });
+
+        btnMakeComp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoMakeComp();
+            }
+        });
+
         configView();
 
 
@@ -74,6 +92,7 @@ public class RestaurantLogin extends AppCompatActivity {
     }
 
     public void goToAddItems(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Intent i = new Intent(this, RestaurantMenuCRUD.class);
         startActivity(i);
     }
@@ -88,6 +107,8 @@ public class RestaurantLogin extends AppCompatActivity {
             btnGoReg.setVisibility(View.INVISIBLE);
             btnGoAddItems.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.VISIBLE);
+            btnComplaint.setVisibility(View.VISIBLE);
+            btnMakeComp.setVisibility(View.VISIBLE);
         }
         else{
             viewUser.setVisibility(View.VISIBLE);
@@ -96,6 +117,8 @@ public class RestaurantLogin extends AppCompatActivity {
             btnGoReg.setVisibility(View.VISIBLE);
             btnGoAddItems.setVisibility(View.INVISIBLE);
             btnLogout.setVisibility(View.INVISIBLE);
+            btnComplaint.setVisibility(View.INVISIBLE);
+            btnMakeComp.setVisibility(View.VISIBLE);
         }
 
     }
@@ -107,6 +130,18 @@ public class RestaurantLogin extends AppCompatActivity {
         startActivity(i);
 
     }
+
+    public void ShowComplaintList(){
+        Intent i = new Intent(RestaurantLogin.this, ComplaintList.class);
+        startActivity(i);
+
+    }
+
+    public void gotoMakeComp(){
+        Intent i = new Intent(this, RestauantComplaint.class);
+        startActivity(i);
+    }
+
 
 
     public void RestLogin(){
