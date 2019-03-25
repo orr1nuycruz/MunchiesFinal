@@ -72,7 +72,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
         //Firebase
         myFB = FirebaseDatabase.getInstance();
-        myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases").child("AuthUser: " + userEmail);
+        myRef = myFB.getReference("MunchiesDB").child("RestaurantOrders").child(restaurantName).child("Purchases");
         myRef2 = myFB.getReference("MunchiesDB").child("OrderHistory").child(userEmail);
 
 
@@ -121,9 +121,9 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
 
 
-      myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");
+        myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");
 
-       // myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
+        // myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
         myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
 
 
@@ -133,14 +133,12 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
         editor.apply();
 
 
-    Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
 
     myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Price").setValue(orderPrice);
 
 
-    myRef.child(currentDay).child(num).child("Order").setValue(sample);
-    myRef.child(currentDay).child(num).child("HourCreated").setValue(currentHour);
-    myRef.child(currentDay).child(num).child("price").setValue(orderPrice);
     myRef2.child(num).setValue(order);
 
     Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
