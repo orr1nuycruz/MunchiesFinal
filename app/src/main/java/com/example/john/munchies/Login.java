@@ -21,6 +21,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+/*
+Jason N'Guessan
+Date: April 2nd
+ */
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     DatabaseHelper myDB;
