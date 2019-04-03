@@ -56,6 +56,12 @@
                     android:layout_height="wrap_content"
                     android:text="Remove" />
 
+                <Button
+                    android:id="@+id/check_approval_Btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="check Approval" />
+
             </LinearLayout>
 
             <LinearLayout

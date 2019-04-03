@@ -3,6 +3,7 @@ package com.example.john.munchies;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +15,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.text.SimpleDateFormat;
@@ -29,11 +33,11 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
     ListView order;
     TextView price;
-    Button checkout_Btn, remove_btn;
+    Button checkout_Btn, approval_Btn,remove_btn;
     List<String> sample;
     String userEmail;
     SimpleDateFormat day, hour;
-
+    String num;
     String currentDay, orderitem, currentHour;
 
     String orderPrice, restaurantName, finalPrice;
@@ -80,13 +84,15 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
         order = (ListView)findViewById(R.id.order);
         price = (TextView) findViewById(R.id.orderPrice);
         checkout_Btn = (Button) findViewById(R.id.checkout_Btn);
-        remove_btn = (Button) findViewById(R.id.remove_Btn);
+        approval_Btn = (Button) findViewById(R.id.check_approval_Btn);
 
         //Modify Views
         order.setAdapter(orderItemsAdapter);
 
         //Listeners
         checkout_Btn.setOnClickListener(this);
+        approval_Btn.setOnClickListener(this);
+
 
         //Other
         price.setText("TOTAL: " + orderPrice);
@@ -103,8 +109,41 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
         if (view == checkout_Btn){
             placeOrder();
         }
+        if (view == approval_Btn){
+            currentDay = day.format(new Date());
+
+//TEST3 BY CHILD DID NOT WORK  - BY VALUE DID - ODD
+
+            myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").orderByValue().equalTo("Accepted").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        Toast.makeText(getApplicationContext(), "Accepted " + num, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Awaiting Restaurant Reply - 1 minutes (EDIT THRU FIREBASE)" + num , Toast.LENGTH_LONG).show();
+                        approval_Btn.setEnabled(false);
+
+                        approval_Btn.postDelayed(new Runnable() {
+                            public void run() {
+                                approval_Btn.setEnabled(true);
+                            }
+                        }, 60000);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });        }
 
     }
+
+
+
+
 
 
 
@@ -113,9 +152,10 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     currentHour = hour.format(new Date());
     //Replace Num with KEY
     Random r = new Random();
-    int n = r.nextInt(99999);
+     int n = r.nextInt(99999);
 
-    String num = "Order: " + n;
+
+     num = "Order: " + n;
     //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
     OrderHistoryClass order = new OrderHistoryClass(num, currentDay, orderPrice, sample.toString());
 
@@ -167,8 +207,15 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
         });
 
     }
-}
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+            moveTaskToBack(true);
+
+    }
+
+}
 
 
 

@@ -79,6 +79,10 @@ public class RestaurantSuccess extends AppCompatActivity implements  View.OnClic
         startActivity(myIntent);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       // moveTaskToBack(true);
 
-
+    }
 }

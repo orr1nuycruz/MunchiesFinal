@@ -19,16 +19,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-/*
-Jason N'Guessan
-Date: April 2nd
- */
 
 public class SearchRegistered extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,8 +41,7 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_registered);
 
-        //initialize
-        firebaseAuth = FirebaseAuth.getInstance();
+        //initialize instance not needed on register page
 
 
         //DB = new DatabaseHelper(this);
@@ -88,18 +83,16 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
             //therefore it must be created
             progressDialog.setMessage("Processing Registration");
             progressDialog.show();
+            firebaseAuth = FirebaseAuth.getInstance();
 
+            //Create Account - creates user
             firebaseAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
 
-                        Toast.makeText(SearchRegistered.this, "REGISTERED", Toast.LENGTH_SHORT).show();
                         progressDialog.cancel();
-
-                        Intent i = new Intent(SearchRegistered.this, Login.class);
-                        startActivity(i);
-
+                        sendEmailVerification();
                     }
                     else {
                         progressDialog.cancel();
@@ -112,9 +105,33 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
 
                 }
             });
+            //Verification
         }
     }
 
+    private void sendEmailVerification(){
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null){
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()){
+                        Toast.makeText(SearchRegistered.this, "REGISTERED, verification mail sent", Toast.LENGTH_SHORT).show();
+                        //sign out the user once registering him so he can verify his pass
+                        firebaseAuth.signOut();
+                        finish();
+
+                        startActivity(new Intent(SearchRegistered.this, Login.class));
+
+                    }
+                    else {
+                        Toast.makeText(SearchRegistered.this, "NOT REGISTERED, verification mail has not been sent", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
     @Override
     public void onClick(View view){
         //I need to compare it to something
