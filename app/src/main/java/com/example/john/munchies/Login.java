@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //SQLITE Database
         myDB = new DatabaseHelper(this);
 
-        //Firebase Database
+        //Firebase Database - like a session - remove the instance & its new
         mAuth = FirebaseAuth.getInstance();
 
         //View
@@ -137,19 +137,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         progressDialog.setMessage("Processing Login Page");
         progressDialog.show();
 
-
+//SIGNS IN WITH USER - GETS USER
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
 
                    String val = email.substring(0, email.indexOf("@"));
                     editor.putString("userEmail", val);
                     editor.apply();
-
-                    currentPage();
                     progressDialog.cancel();
+
+                    emailVerification();
+                    Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
+
 
                     //Successful
                 }
@@ -164,6 +165,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+    private void emailVerification() {
+        //Meaning User Logged in
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        Boolean emailflag = firebaseUser.isEmailVerified();
+
+        if (emailflag == true) {
+            finish();
+            currentPage();
+        } else {
+            Toast.makeText(this, "Verify your Email", Toast.LENGTH_SHORT).show();
+             mAuth.signOut();
+
+        }
+    }
+
 
     public void configView(){
 
