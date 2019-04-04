@@ -52,6 +52,8 @@ public class CustomerCreditCardList extends AppCompatActivity {
         btnDeleteCreditCard = (Button)findViewById(R.id.btnDeleteCardList);
         btnAddCreditCard = (Button)findViewById(R.id.btnAddCreditCard);
         btnCreditCardDetail = (Button)findViewById(R.id.btnCreditCardDetail);
+        btnDeleteCreditCard.setEnabled(false);
+        btnCreditCardDetail.setEnabled(false);
 
         customerCreditCardList = (ListView)findViewById(R.id.customerCreditCardList);
 
@@ -69,6 +71,9 @@ public class CustomerCreditCardList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 creditCard.setCreditCardID(customerCreditCardArrayList.get(position));
                 creditNum = customerCreditCardArrayList.get(position).toString();
+                btnDeleteCreditCard.setEnabled(true);
+                btnCreditCardDetail.setEnabled(true);
+                btnAddCreditCard.setEnabled(false);
             }
         });
 
@@ -80,6 +85,9 @@ public class CustomerCreditCardList extends AppCompatActivity {
                 if(id.equals("")){
                     Toast.makeText( CustomerCreditCardList.this, "Please Select credit card you before delete!", Toast.LENGTH_LONG).show();
                 } else {
+                    btnDeleteCreditCard.setEnabled(false);
+                    btnCreditCardDetail.setEnabled(false);
+                    btnAddCreditCard.setEnabled(true);
                     myRef.child(customerEmail).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -101,6 +109,8 @@ public class CustomerCreditCardList extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(CustomerCreditCardList.this, CustomerCreditCard.class);
                 startActivity(myIntent);
+                btnDeleteCreditCard.setEnabled(false);
+                btnCreditCardDetail.setEnabled(false);
             }
         });
 

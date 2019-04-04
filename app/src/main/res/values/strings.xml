@@ -27,7 +27,7 @@
     <string name="menuPrice">Item price:</string>
     <string name="myCart">My Cart</string>
     <string name="myPurchaseHistory">Purchase History</string>
-    <string name="menuCRUD">Menu CRUD</string>
+    <string name="menuCRUD">Restaurant Menu CRUD</string>
     <string name="btnAdd">Add</string>
     <string name="btnUpdate">Update</string>
     <string name="btnDelete">Delete</string>
