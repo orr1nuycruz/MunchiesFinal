@@ -22,7 +22,8 @@
             android:noHistory="true" />
         <activity
             android:name=".RestaurantLogin"
-            android:label="Restaurant View"/>
+            android:label="Restaurant View"
+            android:noHistory="true"/>
         <activity android:name=".ShowFirebaseActivity" />
         <activity android:name=".AddFireBaseActivity" />
         <activity android:name=".Homepage">
@@ -37,7 +38,9 @@
             android:name=".SearchRegistered"
             android:label="Register with Centennial Account"
             android:noHistory="true" />
-        <activity android:name=".Login"/>
+        <activity android:name=".Login"
+            android:label="Customer View"
+            android:noHistory="true"/>
         <activity
             android:name=".AdminAddRestaurant"
             android:noHistory="true" />

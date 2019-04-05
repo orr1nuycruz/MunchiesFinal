@@ -30,7 +30,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email, password;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
-    Button register, login, changePassword, logout, next, GoAddRes, creditCardInfo, viewCreditCard, ViewComp;
+    Button register, login, changePassword, logout, next,
+            GoAddRes, creditCardInfo, viewCreditCard, ViewComp, viewFoodHistory;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
@@ -74,6 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         next = (Button) findViewById((R.id.next));
         GoAddRes = (Button) findViewById(R.id.addRes);
         ViewComp = (Button) findViewById(R.id.viewComplaint);
+        viewFoodHistory = (Button) findViewById(R.id.viewHistory);
 
         creditCardInfo = (Button)findViewById(R.id.addCreditCard);
         viewCreditCard = (Button)findViewById(R.id.viewCreditCard);
@@ -99,6 +101,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         next.setOnClickListener(this);
         GoAddRes.setOnClickListener(this);
         ViewComp.setOnClickListener(this);
+        viewFoodHistory.setOnClickListener(this);
         creditCardInfo.setOnClickListener(this);
         viewCreditCard.setOnClickListener(this);
 
@@ -144,6 +147,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         if(view == viewCreditCard ){
             ViewCustomerCreditCard();
+        }
+        if(view == viewFoodHistory){
+            ViewHistoryPage();
         }
 
     }
@@ -231,7 +237,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             txtv.setText("Admin Login");
 
             logout.setVisibility(View.VISIBLE);
-            GoAddRes.setVisibility(View.VISIBLE);
+            admView.setVisibility(View.VISIBLE);
         }
         else{
             if (mAuth.getCurrentUser() != null){
@@ -248,10 +254,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 txtv.setText("Welcome Back " + kept + "!");
 
                 custView.setVisibility(View.VISIBLE);
+                admView.setVisibility(View.INVISIBLE);
 
                 logout.setVisibility(View.VISIBLE);
 
-                GoAddRes.setVisibility(View.INVISIBLE);
             }
             else {
                 register.setVisibility(View.VISIBLE);
@@ -265,8 +271,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 txtv.setText("Login");
 
                 custView.setVisibility(View.INVISIBLE);
-
-                GoAddRes.setVisibility(View.INVISIBLE);
+                admView.setVisibility(View.INVISIBLE);
 
                 logout.setVisibility(View.INVISIBLE);
             }
@@ -319,6 +324,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void ViewRestComplaints(){
         Intent i = new Intent(Login.this, ComplaintList.class);
+        startActivity(i);
+    }
+
+    public void  ViewHistoryPage(){
+        Intent i = new Intent(Login.this, ViewOrderHistory.class);
         startActivity(i);
     }
 }
