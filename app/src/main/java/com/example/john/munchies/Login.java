@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email, password;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
-    Button register, login, changePassword, logout, next, GoAddRes, GotoRest;
+    Button register, login, changePassword, logout, next, GoAddRes, ViewComp;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //Firebase AUTH
     FirebaseAuth mAuth;
     // FirebaseAuth.AuthStateListener mAuthListner;
+    String admin;
 
 
 
@@ -72,7 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         changePassword = (Button) findViewById((R.id.CheckRows));
         next = (Button) findViewById((R.id.next));
         GoAddRes = (Button) findViewById(R.id.addRes);
-        GotoRest = (Button) findViewById(R.id.goRestaurant);
+        ViewComp = (Button) findViewById(R.id.viewComplaint);
 
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
@@ -94,11 +95,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         register.setOnClickListener(this);
         next.setOnClickListener(this);
         GoAddRes.setOnClickListener(this);
-        GotoRest.setOnClickListener(this);
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        editor = preferences.edit();
-
+        ViewComp.setOnClickListener(this);
 
 
     }
@@ -125,45 +122,56 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(view == GoAddRes){
             AddAdminRes();
         }
-        if(view == GotoRest){
-            RestaurantLogin();
+        if(view == ViewComp){
+            ViewRestComplaints();
         }
 
     }
 
     public void Login(){
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = preferences.edit();
         password = loginpass.getText().toString();
         email = loginname.getText().toString();
         progressDialog.setMessage("Processing Login Page");
         progressDialog.show();
+        if(email.equals("admin@myadmin.com") && password.equals("admin01")){
+            String val = email.substring(0, email.indexOf("@"));
+            editor.putString("userEmail", val);
+            editor.apply();
+            progressDialog.cancel();
+            Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
+            currentPage();
+        }
+        else{
+            //SIGNS IN WITH USER - GETS USER
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
 
-//SIGNS IN WITH USER - GETS USER
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                        String val = email.substring(0, email.indexOf("@"));
+                        editor.putString("userEmail", val);
+                        editor.apply();
+                        progressDialog.cancel();
 
-                    String val = email.substring(0, email.indexOf("@"));
-                    editor.putString("userEmail", val);
-                    editor.apply();
+                        emailVerification();
+                        Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
+
+
+                        //Successful
+                    }
+                    else{
+                        Toast.makeText(Login.this, "You have entered a wrong account", Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
+
+                        //failed
+                    }
                     progressDialog.cancel();
 
-                    emailVerification();
-                    Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
-
-
-                    //Successful
                 }
-                else{
-                    Toast.makeText(Login.this, "You have entered a wrong account", Toast.LENGTH_SHORT).show();
-                    progressDialog.cancel();
-
-                    //failed
-                }
-                progressDialog.cancel();
-
-            }
-        });
+            });
+        }
     }
 
     private void emailVerification() {
@@ -183,26 +191,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     public void configView(){
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        admin = preferences.getString("userEmail", "");
+        if(admin.equals("admin")){
+            register.setVisibility(View.INVISIBLE);
+            login.setVisibility(View.INVISIBLE);
+            loginname.setVisibility(View.INVISIBLE);
+            loginpass.setVisibility(View.INVISIBLE);
 
-        if (mAuth.getCurrentUser() != null){
-            if(mAuth.getCurrentUser().getEmail().equals("admin@myadmin.ca")) {
-                register.setVisibility(View.INVISIBLE);
-                login.setVisibility(View.INVISIBLE);
-                loginname.setVisibility(View.INVISIBLE);
-                loginpass.setVisibility(View.INVISIBLE);
+            txtlogin.setVisibility(View.INVISIBLE);
+            txtpass.setVisibility(View.INVISIBLE);
 
-                txtlogin.setVisibility(View.INVISIBLE);
-                txtpass.setVisibility(View.INVISIBLE);
+            custView.setVisibility(View.INVISIBLE);
+            txtv.setText("Admin Login");
 
-                custView.setVisibility(View.INVISIBLE);
-                txtv.setText("Welcome Admin");
-
-                GotoRest.setVisibility(View.INVISIBLE);
-                logout.setVisibility(View.VISIBLE);
-
-                GoAddRes.setVisibility(View.VISIBLE);
-            }
-            else{
+            logout.setVisibility(View.VISIBLE);
+            GoAddRes.setVisibility(View.VISIBLE);
+        }
+        else{
+            if (mAuth.getCurrentUser() != null){
                 register.setVisibility(View.INVISIBLE);
                 login.setVisibility(View.INVISIBLE);
                 loginname.setVisibility(View.INVISIBLE);
@@ -218,38 +225,34 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 custView.setVisibility(View.VISIBLE);
 
                 logout.setVisibility(View.VISIBLE);
-                GotoRest.setVisibility(View.INVISIBLE);
 
                 GoAddRes.setVisibility(View.INVISIBLE);
             }
+            else {
+                register.setVisibility(View.VISIBLE);
+                login.setVisibility(View.VISIBLE);
+                loginname.setVisibility(View.VISIBLE);
+                loginpass.setVisibility(View.VISIBLE);
 
+                txtlogin.setVisibility(View.VISIBLE);
+                txtpass.setVisibility(View.VISIBLE);
+
+                txtv.setText("Login");
+
+                custView.setVisibility(View.INVISIBLE);
+
+                GoAddRes.setVisibility(View.INVISIBLE);
+
+                logout.setVisibility(View.INVISIBLE);
+            }
         }
-
-        else {
-            register.setVisibility(View.VISIBLE);
-            login.setVisibility(View.VISIBLE);
-            loginname.setVisibility(View.VISIBLE);
-            loginpass.setVisibility(View.VISIBLE);
-
-            txtlogin.setVisibility(View.VISIBLE);
-            txtpass.setVisibility(View.VISIBLE);
-
-            txtv.setText("Login");
-
-            custView.setVisibility(View.INVISIBLE);
-
-            GotoRest.setVisibility(View.VISIBLE);
-            GoAddRes.setVisibility(View.INVISIBLE);
-
-            logout.setVisibility(View.INVISIBLE);
-        }
-
-
 
     }
 
 
     public void logout(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        preferences.edit().remove("userEmail").commit();
         mAuth.signOut();
         Intent i = new Intent(Login.this,Login.class);
         startActivity(i);
@@ -275,13 +278,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         startActivity(i);
     }
 
-    public void RestaurantLogin (){
-        Intent i = new Intent(Login.this, RestaurantLogin.class);
+    public void AddAdminRes (){
+        Intent i = new Intent(Login.this, AdminAddRestaurant.class);
         startActivity(i);
     }
 
-    public void AddAdminRes (){
-        Intent i = new Intent(Login.this, AdminAddRestaurant.class);
+    public void ViewRestComplaints(){
+        Intent i = new Intent(Login.this, ComplaintList.class);
         startActivity(i);
     }
 }

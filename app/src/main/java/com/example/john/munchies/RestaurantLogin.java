@@ -144,7 +144,8 @@ public class RestaurantLogin extends AppCompatActivity {
     }
     public void Logout(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        preferences.edit().clear().apply();
+        preferences.edit().remove("User").commit();
+        preferences.edit().remove("RestName").commit();
         Intent i = new Intent(RestaurantLogin.this, RestaurantLogin.class);
         startActivity(i);
 

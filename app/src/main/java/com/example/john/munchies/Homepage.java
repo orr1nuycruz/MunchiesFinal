@@ -18,6 +18,11 @@ public class Homepage extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void goToResLogin(View v) {
+        Intent i = new Intent(Homepage.this, RestaurantLogin.class);
+        startActivity(i);
+    }
+
 
     public void goToLAdd(View v){
         Intent i = new Intent(Homepage.this, AddFireBaseActivity.class);

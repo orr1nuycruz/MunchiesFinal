@@ -14,13 +14,6 @@
         android:background="@android:color/background_dark">
 
 
-        <Button
-            android:id="@+id/goRestaurant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Restaurant View"/>
-
 
         <Button
             android:id="@+id/logout"

@@ -54,8 +54,10 @@
         <activity android:name=".CustomerComplaint" />
         <activity android:name=".RestaurantViewOrders" />
         <activity android:name=".RestaurantViewCustomerOrders" />
-        <activity android:name=".RestaurantSuccess" />
-        <activity android:name=".RestaurantDenied"></activity>
+        <activity android:name=".RestaurantSuccess"
+            android:noHistory="true"/>
+        <activity android:name=".RestaurantDenied"
+            android:noHistory="true"/>
         <activity android:name=".CustomerCreditCard" />
         <activity android:name=".CustomerCreditCardList" />
         <activity android:name=".CustomerCreditCardDetail"></activity>
