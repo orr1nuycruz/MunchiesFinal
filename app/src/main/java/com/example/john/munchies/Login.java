@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email, password;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
-    Button register, login, changePassword, logout, next, GoAddRes, ViewComp;
+    Button register, login, changePassword, logout, next, GoAddRes, creditCardInfo, viewCreditCard, ViewComp;
     LinearLayout custView, admView;
     TextView txtlogin, txtpass, txtv;
 
@@ -75,6 +75,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         GoAddRes = (Button) findViewById(R.id.addRes);
         ViewComp = (Button) findViewById(R.id.viewComplaint);
 
+        creditCardInfo = (Button)findViewById(R.id.addCreditCard);
+        viewCreditCard = (Button)findViewById(R.id.viewCreditCard);
+
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
         txtv= (TextView)findViewById(R.id.txtloginMessage);
@@ -96,6 +99,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         next.setOnClickListener(this);
         GoAddRes.setOnClickListener(this);
         ViewComp.setOnClickListener(this);
+        creditCardInfo.setOnClickListener(this);
+        viewCreditCard.setOnClickListener(this);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = preferences.edit();
+
 
 
     }
@@ -105,6 +114,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void onClick(View view) {
         if (view == login){
+            String getLoginName = loginname.getText().toString();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("customerEmail", getLoginName);
+            editor.apply();
             Login();
         }
         if (view == changePassword){
@@ -124,6 +138,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         if(view == ViewComp){
             ViewRestComplaints();
+        }
+        if(view == creditCardInfo){
+            CustomerCreditCardInfo();
+        }
+        if(view == viewCreditCard ){
+            ViewCustomerCreditCard();
         }
 
     }
@@ -155,15 +175,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         editor.apply();
                         progressDialog.cancel();
 
+
+                    emailVerification();
+                    Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
                         emailVerification();
                         Toast.makeText(Login.this, "Correct Account", Toast.LENGTH_SHORT).show();
 
 
-                        //Successful
-                    }
-                    else{
-                        Toast.makeText(Login.this, "You have entered a wrong account", Toast.LENGTH_SHORT).show();
-                        progressDialog.cancel();
+
+
+                    //Successful
+                }
+                else{
+                    Toast.makeText(Login.this, "You have entered a wrong account", Toast.LENGTH_SHORT).show();
+                    progressDialog.cancel();
 
                         //failed
                     }
@@ -264,7 +289,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void currentPage(){
-        Intent i = new Intent(Login.this,Login.class);
+        Intent i = new Intent(Login.this, Login.class);
         startActivity(i);
     }
 
@@ -280,6 +305,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void AddAdminRes (){
         Intent i = new Intent(Login.this, AdminAddRestaurant.class);
+        startActivity(i);
+    }
+    public void CustomerCreditCardInfo(){
+        Intent i = new Intent(Login.this, CustomerCreditCard.class);
+        startActivity(i);
+    }
+
+    public void  ViewCustomerCreditCard(){
+        Intent i = new Intent(Login.this, CustomerCreditCardList.class);
         startActivity(i);
     }
 

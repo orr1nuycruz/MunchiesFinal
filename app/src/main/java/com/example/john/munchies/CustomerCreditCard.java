@@ -1,5 +1,6 @@
 package com.example.john.munchies;
 //Harvey Cabrias
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +68,10 @@ public class CustomerCreditCard extends AppCompatActivity {
 
                 if(getCustomerHolderName.equals("") || getCustomerCreditCardNum.equals("") ||  getCreditCardDate.equals("") || getCreditCardCVV.equals("")){
                     Toast.makeText( CustomerCreditCard.this, "Please fill out all information", Toast.LENGTH_LONG).show();
-                } else {
+                } else if (getCustomerCreditCardNum.length() != 8){
+                    Toast.makeText( CustomerCreditCard.this, "Please input 8 credit card digits", Toast.LENGTH_LONG).show();
+                }
+                else {
                     counter =+ 1;
                     String getCustomerCreditCardID = Integer.toString(counter);
                     CreditCardClass creditCard = new CreditCardClass(getCustomerCreditCardID, getCustomerCreditCardNum, getCustomerHolderName, getCreditCardDate, creditCardCVV, getCustomerCreditCardEmail);
@@ -76,6 +80,9 @@ public class CustomerCreditCard extends AppCompatActivity {
                     editCustomerCreditCardNumber.setText("");
                     editCreditCardDate.setText("");
                     editCreditCardCVV.setText("");
+
+                    Intent myIntent = new Intent( CustomerCreditCard.this, CustomerCreditCardList.class);
+                    startActivity(myIntent);
                 }
             }
         });

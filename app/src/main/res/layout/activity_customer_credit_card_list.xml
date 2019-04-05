@@ -30,12 +30,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btnDelete"
-            android:id="@+id/btnDeleteCardList"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/btnAdd"
             android:id="@+id/btnAddCreditCard"/>
 
@@ -45,6 +39,12 @@
             android:layout_height="wrap_content"
             android:text="@string/btnDetail"
             android:id="@+id/btnCreditCardDetail"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnDelete"
+            android:id="@+id/btnDeleteCardList"/>
 
     </LinearLayout>
 

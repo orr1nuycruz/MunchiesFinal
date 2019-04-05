@@ -53,6 +53,8 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
         btnAddMenu = (Button)findViewById(R.id.btnAddMenu);
         btnUpdateMenu = (Button)findViewById(R.id.btnUpdateMenu);
         btnDeleteMenu = (Button)findViewById(R.id.btnDeleteMenu);
+        btnUpdateMenu.setEnabled(false);
+        btnDeleteMenu.setEnabled(false);
 
         editRestaurantMenuName = (EditText)findViewById(R.id.EditMenuName);
         editRestaurantMenuPrice = (EditText)findViewById(R.id.EditMenuPrice);
@@ -100,18 +102,24 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
     }
 
     public void updateMenuItem(){
-
-
         btnUpdateMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //GET position of the selected item
-
                 String getRestaurantItemName = editRestaurantMenuName.getText().toString();
                 String getRestaurantPrice = editRestaurantMenuPrice.getText().toString();
                 String getRestaurantName = restaurantName.toString();
                 Double price = Double.valueOf(getRestaurantPrice).doubleValue();
+                //Enable or Disable Buttons
+                btnAddMenu.setEnabled(true);
+                btnUpdateMenu.setEnabled(false);
+                btnDeleteMenu.setEnabled(false);
 
+                //Enable editing
+                editRestaurantMenuName.setEnabled(true);
+
+                editRestaurantMenuName.setText("");
+                editRestaurantMenuPrice.setText("");
                 if(!getRestaurantItemName.isEmpty() && getRestaurantItemName.length() > 0){
                     RestaurantItemClass menu = new RestaurantItemClass( getRestaurantItemName, getRestaurantName, price);
                     myRef.child(getRestaurantItemName).setValue(menu);
@@ -129,6 +137,13 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 restaurant.setItemID(restaurantMenuArrayList.get(position));
                 editRestaurantMenuName.setText(restaurantMenuArrayList.get(position));
+                //Enable or Disable Buttons
+                btnAddMenu.setEnabled(false);
+                btnUpdateMenu.setEnabled(true);
+                btnDeleteMenu.setEnabled(true);
+
+                //Display edit text
+                editRestaurantMenuName.setEnabled(false);
             }
         });
 
@@ -144,8 +159,17 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             myRef.child(name).removeValue();
+                            //Set text to empty
                             editRestaurantMenuName.setText("");
                             editRestaurantMenuPrice.setText("");
+
+                            //Enable or Disable Buttons
+                            btnAddMenu.setEnabled(true);
+                            btnUpdateMenu.setEnabled(false);
+                            btnDeleteMenu.setEnabled(false);
+
+                            //Enable editing
+                            editRestaurantMenuName.setEnabled(true);
                         }
 
                         @Override
@@ -185,7 +209,7 @@ public class RestaurantMenuCRUD extends AppCompatActivity {
 
 
         restaurantMenuAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, restaurantMenuArrayList);
+                android.R.layout.simple_list_item_single_choice, restaurantMenuArrayList);
         restaurantMenuList.setAdapter(restaurantMenuAdapter);
 
     }

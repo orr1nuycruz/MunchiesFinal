@@ -77,7 +77,6 @@ public class RestaurantLogin extends AppCompatActivity {
         });
 
 
-
         btnComplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
