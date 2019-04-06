@@ -61,15 +61,30 @@ public class CustomerCreditCard extends AppCompatActivity {
                 String getCreditCardDate = editCreditCardDate.getText().toString();
                 String getCreditCardCVV = editCreditCardCVV.getText().toString();
                 String getCustomerCreditCardEmail = userEmail.toString();
+
                 String customerEmail = getCustomerCreditCardEmail.substring(0, getCustomerCreditCardEmail.indexOf("@"));
 
 
                 int creditCardCVV = Integer.parseInt(getCreditCardCVV);
 
-                if(getCustomerHolderName.equals("") || getCustomerCreditCardNum.equals("") ||  getCreditCardDate.equals("") || getCreditCardCVV.equals("")){
-                    Toast.makeText( CustomerCreditCard.this, "Please fill out all information", Toast.LENGTH_LONG).show();
-                } else if (getCustomerCreditCardNum.length() != 8){
-                    Toast.makeText( CustomerCreditCard.this, "Please input 8 credit card digits", Toast.LENGTH_LONG).show();
+                if(getCustomerHolderName.isEmpty() || getCustomerCreditCardNum.isEmpty() || getCreditCardDate.isEmpty() || getCreditCardCVV.isEmpty()){
+                    Toast.makeText( CustomerCreditCard.this, "Please fill out required fields", Toast.LENGTH_LONG).show();
+                }
+
+                if(getCustomerHolderName.isEmpty()){
+                    Toast.makeText( CustomerCreditCard.this, "Please fill out Holder Name", Toast.LENGTH_LONG).show();
+                } else if (getCustomerCreditCardNum.isEmpty()){
+                    Toast.makeText( CustomerCreditCard.this, "Please fill out Credit Card Number", Toast.LENGTH_LONG).show();
+                } else if (getCreditCardDate.isEmpty()){
+                    Toast.makeText( CustomerCreditCard.this, "Please fill out Credit Card Date", Toast.LENGTH_LONG).show();
+                } else if (getCreditCardCVV.isEmpty()){
+                    Toast.makeText( CustomerCreditCard.this, "Please fill out Credit CVV", Toast.LENGTH_LONG).show();
+                } else if (getCustomerCreditCardNum.length() != 16){
+                    Toast.makeText( CustomerCreditCard.this, "Please input 16 credit card digits", Toast.LENGTH_LONG).show();
+                } else if (getCreditCardDate.length() != 4){
+                    Toast.makeText( CustomerCreditCard.this, "Please enter 4 digits MM/YY", Toast.LENGTH_LONG).show();
+                } else if (getCreditCardCVV.length() != 3){
+                    Toast.makeText( CustomerCreditCard.this, "Please enter 3 CVV digits", Toast.LENGTH_LONG).show();
                 }
                 else {
                     counter =+ 1;

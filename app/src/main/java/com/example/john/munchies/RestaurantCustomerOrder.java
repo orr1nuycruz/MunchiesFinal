@@ -108,6 +108,9 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     public void onClick(View view){
         if (view == checkout_Btn){
             placeOrder();
+
+            Intent myIntent = new Intent( RestaurantCustomerOrder.this, CustomerPayment.class);
+            startActivity(myIntent);
         }
         if (view == approval_Btn){
             currentDay = day.format(new Date());
@@ -156,6 +159,12 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
 
      num = "Order: " + n;
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("orderNum", num);
+        editor.apply();
+
     //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
     OrderHistoryClass order = new OrderHistoryClass(num, currentDay, orderPrice, sample.toString(), "Awaiting");
         myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");

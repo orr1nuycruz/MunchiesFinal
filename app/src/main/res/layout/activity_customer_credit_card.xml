@@ -63,7 +63,7 @@
             android:id="@+id/EditCreditCardDate"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="date" />
     </LinearLayout>
 
     <LinearLayout android:orientation="horizontal"

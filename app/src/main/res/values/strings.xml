@@ -49,6 +49,12 @@
     <string name="creditCardDetail">Credit Card Details</string>
     <string name="btnDetail">Details</string>
 
+    <string name="customerPayment">Payment</string>
+    <string name="listOfItems">List Of Items: </string>
+    <string name="total">Total Cost:</string>
+    <string name="payWithCreditCard">Pay With Credit Card: </string>
+    <string name="customerProceed">Proceed Payment</string>
+
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
