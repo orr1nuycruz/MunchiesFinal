@@ -52,7 +52,8 @@
         <activity android:name=".RestaurantMenuCRUD" />
         <activity android:name=".RestaurantMenu" />
         <activity android:name=".CustomerComplaint" />
-        <activity android:name=".RestaurantViewOrders" />
+        <activity android:name=".RestaurantViewOrders"
+            android:noHistory="true"/>
         <activity android:name=".RestaurantViewCustomerOrders" />
         <activity android:name=".RestaurantSuccess"
             android:noHistory="true"/>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,7 @@ public class RestaurantLogin extends AppCompatActivity {
     EditText txtUser, txtPass;
     String getUser, getPass;
 
+    TextView loginMessage;
     Button btnLogin, btnGoReg, btnGoAddItems, btnLogout, btnComplaint, btnMakeComp, btnGoViewItems;
     LinearLayout viewUser, viewPass;
     FirebaseDatabase firebaseDatabase;
@@ -35,6 +37,8 @@ public class RestaurantLogin extends AppCompatActivity {
         txtPass = (EditText) findViewById(R.id.editRestPass);
         viewUser = (LinearLayout) findViewById(R.id.userView);
         viewPass = (LinearLayout) findViewById(R.id.passView);
+
+        loginMessage = (TextView) findViewById(R.id.txtloginMessage);
 
         btnGoReg = (Button) findViewById(R.id.goRegister);
         btnLogin = (Button) findViewById(R.id.restLgn);
@@ -110,6 +114,7 @@ public class RestaurantLogin extends AppCompatActivity {
     public void configView(){
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String restuser = preferences.getString("RestName", "");
         if(preferences.contains("User") && preferences.contains("RestName")){
             viewUser.setVisibility(View.INVISIBLE);
             viewPass.setVisibility(View.INVISIBLE);
@@ -120,6 +125,7 @@ public class RestaurantLogin extends AppCompatActivity {
             btnLogout.setVisibility(View.VISIBLE);
             btnComplaint.setVisibility(View.VISIBLE);
             btnMakeComp.setVisibility(View.VISIBLE);
+            loginMessage.setText(restuser);
         }
         else{
             viewUser.setVisibility(View.VISIBLE);
@@ -132,6 +138,7 @@ public class RestaurantLogin extends AppCompatActivity {
             btnLogout.setVisibility(View.INVISIBLE);
             btnComplaint.setVisibility(View.INVISIBLE);
             btnMakeComp.setVisibility(View.VISIBLE);
+            loginMessage.setText("Restaurant Login");
         }
 
     }

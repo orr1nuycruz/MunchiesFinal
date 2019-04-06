@@ -63,10 +63,12 @@ public class ViewOrderHistory extends AppCompatActivity {
                             String order = post.getOrder();
                             String day= post.getCurrentDay();
                             String price = post.getPrice();
+                            String status = post.getApproval();
                             Toast.makeText(getApplicationContext(),
                                     "Order: " + order + "" +
                                        "\nOrder Date: " + day + "" +
-                                       "\nPrice: $" + price, Toast.LENGTH_LONG).show();
+                                       "\nPrice: $" + price + "" +
+                                       "\nStatus: " + status, Toast.LENGTH_LONG).show();
 
                         }
                         else{

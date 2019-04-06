@@ -13,12 +13,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RestaurantDenied extends AppCompatActivity   implements  View.OnClickListener {
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference reference, reference1;
+    DatabaseReference reference, reference2;
     Button denied_btn, viewOrder_btn;
     String currentDay;
     String orderNum;
     String restaurantName;
     String authUser;
+    String kept;
 
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
@@ -36,6 +37,8 @@ public class RestaurantDenied extends AppCompatActivity   implements  View.OnCli
         currentDay = preferences.getString("currentDay", "");
         orderNum = preferences.getString("pos", "");
         authUser = preferences.getString("authUser", "");
+        String[] split = authUser.split(" ");
+        kept = split[1];
 
         //View
         denied_btn = (Button) findViewById(R.id.denied_btn);
@@ -45,6 +48,8 @@ public class RestaurantDenied extends AppCompatActivity   implements  View.OnCli
         firebaseDatabase = FirebaseDatabase.getInstance();
         reference = firebaseDatabase.getReference("MunchiesDB").child("RestaurantOrders").
                 child(restaurantName).child("Purchases").child(currentDay).child(orderNum).child(authUser).child("Order").child("Approval");
+
+        reference2 = firebaseDatabase.getReference("MunchiesDB").child("OrderHistory").child(kept).child(orderNum).child("approval");
 
 
         //Listeners
@@ -56,8 +61,8 @@ public class RestaurantDenied extends AppCompatActivity   implements  View.OnCli
     @Override
     public void onClick(View view) {
         if (view == denied_btn ) {
-
             reference.setValue("Denied");
+            reference2.setValue("Denied");
         }
         if (view == viewOrder_btn){
             viewOrder();

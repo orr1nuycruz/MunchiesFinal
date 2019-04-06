@@ -101,7 +101,7 @@ public class    RestaurantMenu extends AppCompatActivity {
                 //Get the values, and split the prices
                 //got the position
                 menuItem = String.valueOf(adapterView.getItemAtPosition(position));
-                String[] parts = menuItem.split("-"); //Array, each element is text between a dash
+                String[] parts = menuItem.split("\n"); //Array, each element is text between a dash
                 double parsePrice = Double.parseDouble(parts[1]);
 
                 if (restaurantMenuList.isItemChecked(position)){
@@ -148,7 +148,7 @@ public class    RestaurantMenu extends AppCompatActivity {
             restaurant = item.getValue(RestaurantItemClass .class);
             //Add it to our Arraylist
 
-            restaurantMenuArrayList.add(restaurant.getItemName() + "\n-" + restaurant.getPrice());
+            restaurantMenuArrayList.add(restaurant.getItemName() + "\n" + restaurant.getPrice());
 
 
 

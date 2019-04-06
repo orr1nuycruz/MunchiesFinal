@@ -20,9 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class RestaurantViewCustomerOrders extends AppCompatActivity implements View.OnClickListener {
     RestaurantOrderClass customerOrder;
@@ -39,8 +38,11 @@ public class RestaurantViewCustomerOrders extends AppCompatActivity implements V
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
-    TextView authUser,order, price, hourCreated;
+    TextView authUser,order, price, hourCreated, showtimer;
     Button accept_btn, decline_btn, orders_btn;
+
+    Date initial = null,
+            current = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -60,6 +62,8 @@ public class RestaurantViewCustomerOrders extends AppCompatActivity implements V
         order = (TextView) findViewById(R.id.order);
         price = (TextView) findViewById(R.id.price);
         hourCreated = (TextView) findViewById(R.id.hourCreated);
+        showtimer = (TextView) findViewById(R.id.showtimer) ;
+
         accept_btn = (Button) findViewById(R.id.accept_btn);
         decline_btn = (Button) findViewById(R.id.decline_btn);
         orders_btn = (Button) findViewById(R.id.orders_btn);
@@ -145,8 +149,6 @@ accept();
         }
      //   Toast.makeText(getApplicationContext(), user.getAuthUser(), Toast.LENGTH_SHORT).show();
 
-
-
     }
 
     public void displayTxtData(){
@@ -176,7 +178,28 @@ accept();
 
                             }
                             order.setText(orderItem);
+
+                            //TIMER
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             hourCreated.setText(customerOrder.getHourCreated());
+                            String todayTime = dateFormat.format(new Date());
+                            try{
+                                initial = dateFormat.parse(customerOrder.getHourCreated());
+                                current = dateFormat.parse(todayTime);
+                            }
+                            catch(Exception e){
+
+                            }
+                            long diff = current.getTime() - initial.getTime();
+                            long diffMinutes = diff / (60 * 1000);
+                            showtimer.setText(diffMinutes + " minute since order");
+                            if(diffMinutes > 1){
+                                showtimer.setText(diffMinutes + " minutes since order");
+                            }
+                            if(diffMinutes > 2){
+                                showtimer.setText(diffMinutes + " minutes since order is made. Since it's over 2 minutes, order can no longer be accepted");
+                                accept_btn.setEnabled(false);
+                            }
 
                         }
                     }

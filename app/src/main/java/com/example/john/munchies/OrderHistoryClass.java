@@ -2,17 +2,27 @@ package com.example.john.munchies;
 
 public class OrderHistoryClass {
     String orderNum, currentDay, price;
-    String order;
+    String order, approval;
 
     public OrderHistoryClass() {
 
     }
 
-    public OrderHistoryClass(String orderNum, String currentDay, String price, String order) {
+
+    public OrderHistoryClass(String orderNum, String currentDay, String price, String order, String approval) {
         this.orderNum = orderNum;
         this.currentDay = currentDay;
         this.price = price;
         this.order = order;
+        this.approval = approval;
+    }
+
+    public String getApproval() {
+        return approval;
+    }
+
+    public void setApproval(String approval) {
+        this.approval = approval;
     }
 
     public String getOrderNum() {

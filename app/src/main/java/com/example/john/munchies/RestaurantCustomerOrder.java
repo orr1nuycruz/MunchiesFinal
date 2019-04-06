@@ -157,10 +157,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
      num = "Order: " + n;
     //TEST FOR DUPLICATION IF THERE IS TIME (Although rare)
-    OrderHistoryClass order = new OrderHistoryClass(num, currentDay, orderPrice, sample.toString());
-
-
-
+    OrderHistoryClass order = new OrderHistoryClass(num, currentDay, orderPrice, sample.toString(), "Awaiting");
         myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Approval").setValue("Awaiting");
 
         // myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Items").setValue(sample);
@@ -171,13 +168,9 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
     myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("HourCreated").setValue(currentHour);
         editor.putString("currentDay", currentDay);
         editor.apply();
-
-
-
         Toast.makeText(this, num, Toast.LENGTH_SHORT).show();
 
     myRef.child(currentDay).child(num).child("AuthUser: " + userEmail).child("Order").child("Price").setValue(orderPrice);
-
 
     myRef2.child(num).setValue(order);
 
@@ -208,55 +201,7 @@ public class RestaurantCustomerOrder extends AppCompatActivity implements View.O
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-            moveTaskToBack(true);
-
-    }
 
 }
 
 
-
-
-//    public void deleteMenuItem(){
-//        final RestaurantItemClass restaurant = new RestaurantItemClass();
-//        restaurantMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                restaurant.setItemID(restaurantMenuArrayList.get(position));
-//                editRestaurantMenuName.setText(restaurantMenuArrayList.get(position));
-//            }
-//        });
-//
-//        btnDeleteMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final String name = restaurant.getItemID();
-//                Toast.makeText(getApplicationContext(), "Deleted " +  name  + " item menu", Toast.LENGTH_SHORT).show();
-//                if(name.equals("")){
-//                    Toast.makeText( RestaurantMenuCRUD.this, "Please Select item before delete!", Toast.LENGTH_LONG).show();
-//                } else {
-//                    myRef.child(restaurantName).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            myRef.child(name).removeValue();
-//                            editRestaurantMenuName.setText("");
-//                            editRestaurantMenuPrice.setText("");
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//    }
-
-//Prevents user from moving back
-//    @Override
-//    public void onBackPressed() {
-//
-//    }

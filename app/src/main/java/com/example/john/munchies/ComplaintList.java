@@ -58,7 +58,7 @@ public class ComplaintList extends AppCompatActivity {
         myRef = myFB.getReference("MunchiesDB").child("Complaints");
         myRef2 = myFB.getReference("MunchiesDB").child("RestComplaints");
 
-        if(!getUser.isEmpty()){
+        if(!getUser.isEmpty() && getUser.equals("admin")){
             myRef2.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -127,7 +127,7 @@ public class ComplaintList extends AppCompatActivity {
                 editor.putString("restComp", ID);
                 //Save
                 editor.apply();
-                if(!getUser.isEmpty()) {
+                if(!getUser.isEmpty() && getUser.equals("admin")) {
                     Intent myIntent = new Intent(ComplaintList.this, ShowComplaintsToAdmin.class);
                     startActivity(myIntent);
                 }

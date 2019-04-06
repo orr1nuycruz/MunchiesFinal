@@ -17,12 +17,13 @@ import java.util.Map;
 
 public class RestaurantSuccess extends AppCompatActivity implements  View.OnClickListener{
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference reference, reference1;
+    DatabaseReference reference, reference2;
     Button notify_btn, viewOrder_btn;;
     String currentDay;
     String orderNum;
     String restaurantName;
     String authUser;
+    String kept;
 
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
@@ -38,6 +39,8 @@ public class RestaurantSuccess extends AppCompatActivity implements  View.OnClic
         currentDay = preferences.getString("currentDay", "");
         orderNum = preferences.getString("pos", "");
         authUser = preferences.getString("authUser", "");
+        String[] split = authUser.split(" ");
+        kept = split[1];
 
         //View
         notify_btn = (Button) findViewById(R.id.approved_btn);
@@ -48,9 +51,8 @@ public class RestaurantSuccess extends AppCompatActivity implements  View.OnClic
         reference = firebaseDatabase.getReference("MunchiesDB").child("RestaurantOrders").
                 child(restaurantName).child("Purchases").child(currentDay).child(orderNum).child(authUser).child("Order").child("Approval");
 
+        reference2 = firebaseDatabase.getReference("MunchiesDB").child("OrderHistory").child(kept).child(orderNum).child("approval");
 
-        reference1 = firebaseDatabase.getReference("MunchiesDB").child("RestaurantOrders").
-                child(restaurantName).child("Purchases").child("2019-03-22").child(orderNum + "2").child(authUser).child("Order").child("Approval");
 
 
         //Listeners
@@ -62,10 +64,8 @@ public class RestaurantSuccess extends AppCompatActivity implements  View.OnClic
     @Override
     public void onClick(View view) {
         if (view == notify_btn ) {
-          //  Map<String, Object> updates = new HashMap<String,Object>();
-        //    updates.put("Approval", "Notified");
             reference.setValue("Accepted");
-          //  reference1.setValue("False");
+            reference2.setValue("Accepted");
         }
 
         if (view == viewOrder_btn){

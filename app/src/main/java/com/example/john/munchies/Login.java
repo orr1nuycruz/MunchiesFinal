@@ -21,6 +21,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,14 +41,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button register, login, changePassword, logout, next,
             GoAddRes, creditCardInfo, viewCreditCard, ViewComp, viewFoodHistory;
     LinearLayout custView, admView;
-    TextView txtlogin, txtpass, txtv;
+    TextView txtlogin, txtpass, txtv, txtTimer;
 
     ProgressDialog progressDialog;
 
     //Firebase AUTH
     FirebaseAuth mAuth;
     // FirebaseAuth.AuthStateListener mAuthListner;
-    String admin;
+    String admin, timerdiff;
+    Date initial = null,
+            current = null;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference reference, reference1;
 
 
 
@@ -83,6 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         txtlogin = (TextView)findViewById(R.id.txtLoginUser);
         txtpass = (TextView)findViewById(R.id.txtLoginPassword);
         txtv= (TextView)findViewById(R.id.txtloginMessage);
+        txtTimer= (TextView)findViewById(R.id.timer);
 
         admView = (LinearLayout) findViewById(R.id.adminView);
         custView = (LinearLayout) findViewById(R.id.customerView) ;
@@ -109,6 +123,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editor = preferences.edit();
 
 
+
+
+        //TESTING TIMER
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String cur = dateFormat.format(new Date());
+        try{
+           initial = dateFormat.parse("04/05/2019 19:30:05");
+           current = dateFormat.parse(cur);
+        }
+        catch(Exception e){
+
+        }
+        long diff = current.getTime() - initial.getTime();
+        long diffSeconds = diff / 1000 % 60;
+        long diffMinutes = diff / (60 * 1000) % 60;
+        long diffHours = diff / (60 * 60 * 1000) % 24;
+        txtTimer.setText(diffHours + ":" + diffMinutes);
 
     }
 
