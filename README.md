@@ -64,7 +64,9 @@ Admin can given his own view portal
 
 
 <h2><b>Running On Android Studio</b></h2>
+<br>Head to OrHarMerge Branch</br>
 <br>Remove the google-services.json file and replace it with your own <a href ="https://firebase.google.com/ ">Firebase</a> </br>
+
 
 
 Documentation:<br>
