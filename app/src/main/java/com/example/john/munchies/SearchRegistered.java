@@ -73,10 +73,11 @@ public class SearchRegistered extends AppCompatActivity implements View.OnClickL
 
         }
 
-        if (!user.endsWith("@my.centennialcollege.ca")) {
+    /*    if (!user.endsWith("@my.centennialcollege.ca")) {
             Toast.makeText(this, "Only Centennial Email Allowed", Toast.LENGTH_SHORT).show();
             return;
         }
+        */
 
 
         else{
